@@ -13,7 +13,7 @@ async function pobierzBazeDanych() {
 }
 
 function zaladujLosowyObraz() {
-    obecnyObrazIndex = Math.floor(Math.random() * obrazy.length +1);
+    obecnyObrazIndex = Math.floor(Math.random() * obrazy.length);
     zaladujObraz();
 }
 
