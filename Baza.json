@@ -3,8 +3,8 @@
     {
       "id": 1,
       "tytul": "13 Willow Street | Phasmophobia",
-      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.jp",
-      "odpowiedz": "13 Willow Street"
+      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.png",
+      "odpowiedz": "Phasmophobia"
     },
     {
       "id": 2,
@@ -24,6 +24,6 @@
       "lokalizacja": "Obrazy/CS2/Zdjecie_1.jpg",
       "odpowiedz": "CS2"
     }
-    
+
   ]
 }

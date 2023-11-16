@@ -116,4 +116,3 @@ function rozpocznijGre() {
 
     // Rozpocznij grê
     pobierzBazeDanych();
-}
