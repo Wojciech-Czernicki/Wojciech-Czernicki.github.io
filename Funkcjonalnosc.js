@@ -5,7 +5,7 @@ var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 
 async function pobierzBazeDanych() {
-    const response = await fetch('Baza_zdjec.json');
+    const response = await fetch('baza.json');
     const data = await response.json();
     obrazy = data.obrazy;
     zaladujLosowyObraz();
@@ -82,12 +82,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function rozpocznijGre() {
+    
+    // Rozpocznij grê
+    pobierzBazeDanych();
+
     // Ukryj ekran pocz¹tkowy
     document.getElementById('startScreen').style.display = 'none';
     
     // Poka¿ ekran gry
     document.getElementById('graScreen').style.display = 'flex';
-
-    // Rozpocznij grê
-    pobierzBazeDanych();
 }
