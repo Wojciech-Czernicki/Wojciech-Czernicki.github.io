@@ -18,9 +18,8 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            obrazy = data.obrazy.map(({ id = 0, tytul = "Brak tytulu", lokalizacja = "Brak lokalizacji", odpowiedz = "Brak odpowiedzi" }) => ({
+            obrazy = data.obrazy.map(({ id = 0, lokalizacja = "Brak lokalizacji", odpowiedz = "Brak odpowiedzi" }) => ({
                 id,
-                tytul,
                 lokalizacja,
                 odpowiedz
             }));
