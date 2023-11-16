@@ -1,5 +1,5 @@
 // Funkcjonalnosc.js
-let obrazy;
+ver obrazy;
 let wprowadzonaOdpowiedz = '';
 let obraz = document.getElementById('obraz');
 let obecnyObrazIndex = 0;
