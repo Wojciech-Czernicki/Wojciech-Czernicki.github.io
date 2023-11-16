@@ -112,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
-/*
 function rozpocznijGre() {
     // Ukryj ekran początkowy
     document.getElementById('startScreen').style.display = 'none';
@@ -122,4 +121,4 @@ function rozpocznijGre() {
 
     // Rozpocznij grę
     pobierzBazeDanych();
-*/
+}
