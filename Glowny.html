@@ -3,25 +3,6 @@
 <head>
     <title>Gra - Odgadnij Obraz</title>
     <style>
-        #kwadrat {
-            position: absolute;
-            top: 35%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80vw;
-            height: 80vw;
-            max-width: 400px;
-            max-height: 400px;
-            border: 5px solid gray;
-            overflow: hidden;
-        }
-
-        #obraz {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         body {
             background-color: black;
             display: flex;
@@ -30,46 +11,51 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            color: white;
         }
 
-        h1, p {
-            color: white;
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        #obraz {
+            width: 80vw;
+            height: 80vw;
+            max-width: 400px;
+            max-height: 400px;
+            border: 5px solid gray;
+            object-fit: cover;
         }
 
         #wprowadzoneLitery {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
             gap: 5px;
-            justify-content: center;
+            justify-items: center;
             margin-top: 20px;
         }
 
-        .wprowadzona-litera {
+        .litera {
             background-color: #333;
             color: white;
             padding: 10px;
-            margin: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
-    <h1>Odgadnij, Co Jest na Obrazie</h1>
-    <input type="hidden" id="odpowiedz">
-    <div id="kwadrat">
-        <img id="obraz" src="" alt="Obraz">
-    </div>
-    <div id="wprowadzoneLitery"></div>
-    <p id="wynik"></p>
-    <div id="wprowadzonaOdpowiedz"></div>
-    <script src="Funkcjonalnosc.js"></script>
-    <script>
-        // Dodaj ten skrypt, aby po zaladowaniu strony rozpoczac pobieranie bazy danych i wyswietlanie obrazu
-        document.addEventListener('DOMContentLoaded', function() {
-            pobierzBazeDanych();
-        });
-    </script>
+<h1>Odgadnij, Co Jest na Obrazie</h1>
+<img id="obraz" src="" alt="Obraz">
+<input type="hidden" id="odpowiedz">
+<p id="wynik"></p>
+<div id="wprowadzonaOdpowiedz"></div>
+<div id="wprowadzoneLitery"></div>
+<script src="Funkcjonalnosc.js"></script>
 </body>
 </html>

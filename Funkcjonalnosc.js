@@ -1,13 +1,10 @@
 // Funkcjonalnosc.js
-ver obrazy;
-let wprowadzonaOdpowiedz = '';
-let obraz = document.getElementById('obraz');
-let obecnyObrazIndex = 0;
-let poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-const wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
+var obrazy;
+var wprowadzonaOdpowiedz = '';
+var obraz = document.getElementById('obraz');
+var obecnyObrazIndex = 0;
+var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 
-document.addEventListener('keydown', handleKeyDown);
-document.addEventListener('DOMContentLoaded', pobierzBazeDanych);
 
 async function pobierzBazeDanych() {
     try {
@@ -17,11 +14,13 @@ async function pobierzBazeDanych() {
         }
         const data = await response.json();
 
-        if (Array.isArray(data.obrazy)) {
-            obrazy = data.obrazy.map(({ id = 0, lokalizacja = "Brak lokalizacji", odpowiedz = "Brak odpowiedzi" }) => ({
-                id,
-                lokalizacja,
-                odpowiedz
+        if (Array.isArray(data.obraz)) {
+            // Ustawienie wartoœci domyœlnych dla brakuj¹cych pól
+            obrazy = data.obrazy.map(obraz => ({
+                id: obraz.id || 0,
+                tytul: obraz.tytul || "Brak tytu³u",
+                lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
+                odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
 
             zaladujLosowyObraz();
@@ -29,80 +28,92 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('Blad pobierania danych:', error);
+        console.error('B³¹d pobierania danych:', error);
     }
 }
 
+
+
 function zaladujLosowyObraz() {
-    obecnyObrazIndex = Math.floor(Math.random() * obrazy.length);
+    const minId = 1;
+    const maxId = 4;
+    obecnyObrazIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
     zaladujObraz();
 }
 
-function zaladujObraz() {
-    const { lokalizacja, odpowiedz } = obrazy[obecnyObrazIndex];
-    obraz.src = lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${odpowiedz}`;
-}
 
+function zaladujObraz() {
+    const aktualnyObraz = obrazy[obecnyObrazIndex];
+    obraz.src = aktualnyObraz.lokalizacja;
+    poprawnaOdpowiedzElement.textContent = `Poprawna OdpowiedŸ: ${aktualnyObraz.odpowiedz}`;
+}
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
         sprawdzOdpowiedz();
         return;
     }
+
     if (wprowadzonaOdpowiedz.length < 25) {
         wprowadzonaOdpowiedz += litera;
         aktualizujWprowadzonaOdpowiedz();
-        dodajDoWprowadzonychLiter(litera);
     }
 }
 
-function dodajDoWprowadzonychLiter(litera) {
-    const literaElement = document.createElement('div');
-    literaElement.classList.add('wprowadzona-litera');
-    literaElement.textContent = litera;
-    wprowadzoneLiteryContainer.appendChild(literaElement);
-}
 
 function usunLitera() {
     wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
     aktualizujWprowadzonaOdpowiedz();
-    usunZwprowadzonychLiter();
-}
-
-function usunZwprowadzonychLiter() {
-    const ostatniaLitera = wprowadzoneLiteryContainer.lastElementChild;
-    if (ostatniaLitera) {
-        wprowadzoneLiteryContainer.removeChild(ostatniaLitera);
-    }
 }
 
 function aktualizujWprowadzonaOdpowiedz() {
+    document.getElementById('wprowadzonaOdpowiedz').textContent = wprowadzonaOdpowiedz;
+}
+
+function sprawdzOdpowiedz() {
+    const odpowiedz = document.getElementById("odpowiedz").value.toLowerCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
-    const odpowiedz = wprowadzonaOdpowiedz.toLowerCase();
 
-    const wynikElement = document.getElementById("wynik");
-    wynikElement.textContent = odpowiedz === poprawnaOdpowiedz ? "Odpowiedz poprawna!" : "Odpowiedz niepoprawna. Spr�buj ponownie.";
+    if (odpowiedz === poprawnaOdpowiedz) {
+        document.getElementById("wynik").textContent = "OdpowiedŸ poprawna!";
+    } else {
+        document.getElementById("wynik").textContent = "OdpowiedŸ niepoprawna. Spróbuj ponownie.";
+    }
 
+    // PrzejdŸ do nastêpnego obrazu
     obecnyObrazIndex++;
     if (obecnyObrazIndex < obrazy.length) {
         zaladujObraz();
         document.getElementById("odpowiedz").value = "";
-        aktualizujWprowadzonaOdpowiedz();
-        usunWprowadzoneLitery();
+        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyœæ wyœwietlon¹ odpowiedŸ
     } else {
-        wynikElement.textContent = "Gra zakonczona!";
+        document.getElementById("wynik").textContent = "Gra zakoñczona!";
     }
 }
 
-function handleKeyDown(event) {
+// Obs³uga klawiatury
+document.addEventListener('keydown', function (event) {
     if (event.key.length === 1) {
-        dodajLitera(event.key.toUpperCase(), event);
+        dodajLitera(event.key.toUpperCase());
     } else if (event.key === 'Backspace') {
         usunLitera();
+    } else if (event.key === 'Enter') {
+        dodajLitera('Enter', event);
     }
-}
+});
 
-function usunWprowadzoneLitery() {
-    wprowadzoneLiteryContainer.innerHTML = '';
+// Rozpocznij grê po za³adowaniu strony
+document.addEventListener('DOMContentLoaded', function () {
+    pobierzBazeDanych();
+});
+
+function rozpocznijGre() {
+    // Ukryj ekran pocz¹tkowy
+    document.getElementById('startScreen').style.display = 'none';
+
+    // Poka¿ ekran gry
+    document.getElementById('graScreen').style.display = 'flex';
+
+    // Rozpocznij grê
+    pobierzBazeDanych();
 }
