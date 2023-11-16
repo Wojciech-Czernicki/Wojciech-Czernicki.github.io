@@ -75,26 +75,21 @@ function sprawdzOdpowiedz() {
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-        
-        // Przejdz do nastepnego obrazu po krótkim opóznieniu
-        setTimeout(() => {
-            obecnyObrazIndex++;
-            if (obecnyObrazIndex < obrazy.length) {
-                zaladujObraz();
-                document.getElementById("odpowiedz").value = "";
-                document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
-                document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-            } else {
-                document.getElementById("wynik").textContent = "Gra zakonczona!";
-            }
-        }, 1000); // Opóznienie 1000 milisekund (1 sekunda)
+        document.getElementById("wynik").textContent = "OdpowiedŸ poprawna!";
     } else {
-        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
+        document.getElementById("wynik").textContent = "OdpowiedŸ niepoprawna. Spróbuj ponownie.";
+    }
+
+    // PrzejdŸ do nastêpnego obrazu
+    obecnyObrazIndex++;
+    if (obecnyObrazIndex < obrazy.length) {
+        zaladujObraz();
+        document.getElementById("odpowiedz").value = "";
+        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyœæ wyœwietlon¹ odpowiedŸ
+    } else {
+        document.getElementById("wynik").textContent = "Gra zakoñczona!";
     }
 }
-
-
 
 // Obs³uga klawiatury
 document.addEventListener('keydown', function (event) {
@@ -121,3 +116,4 @@ function rozpocznijGre() {
 
     // Rozpocznij grê
     pobierzBazeDanych();
+}
