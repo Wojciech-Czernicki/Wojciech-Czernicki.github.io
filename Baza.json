@@ -2,23 +2,27 @@
   "obrazy": [
     {
       "id": 1,
+      "tytul": "13 Willow Street | Phasmophobia",
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.jp",
       "odpowiedz": "13 Willow Street"
     },
     {
       "id": 2,
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_2.jpg",
-      "odpowiedz": "Prison"
+      "odpowiedz": "Phasmophobia",
+      "tytul": "Prison | Phasmophobia"
     },
     {
       "id": 3,
+      "tytul": "Prison | Phasmophobia",
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_3.jpg",
-      "odpowiedz": "Prison"
+      "odpowiedz": "Phasmophobia"
     },
     {
       "id": 4,
+      "tytul": "Overpass | CS2",
       "lokalizacja": "Obrazy/CS2/Zdjecie_1.jpg",
-      "odpowiedz": "Overpass"
+      "odpowiedz": "CS2"
     }
     
   ]

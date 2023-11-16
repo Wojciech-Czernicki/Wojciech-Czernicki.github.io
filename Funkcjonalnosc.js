@@ -18,6 +18,7 @@ async function pobierzBazeDanych() {
             // Ustawienie wartoœci domyœlnych dla brakuj¹cych pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
+                tytul: obraz.tytul || "Brak tytu³u",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
