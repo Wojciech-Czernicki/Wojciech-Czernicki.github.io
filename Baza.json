@@ -1,5 +1,5 @@
 {
-  "obrazy": [
+  "obraz": [
 {
       "id": 1,
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.png",
@@ -17,7 +17,6 @@
     },
     {
       "id": 4,
-
       "lokalizacja": "Obrazy/CS2/Zdjecie_1.jpg",
       "odpowiedz": "Overpass"
     }
