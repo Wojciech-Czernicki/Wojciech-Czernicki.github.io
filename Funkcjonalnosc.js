@@ -8,7 +8,7 @@ var wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
 async function pobierzBazeDanych() {
     const response = await fetch('Baza.json');
     const data = await response.json();
-    obrazy = data.obrazy;
+    obrazy = data.obraz;
     zaladujLosowyObraz();
 }
 
