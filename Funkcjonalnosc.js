@@ -1,11 +1,11 @@
 // Funkcjonalnosc.js
 var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
-var obecnyObrazIndex = 0;
+var obecnyObrazIndex = 1;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 
 async function pobierzBazeDanych() {
-    const response = await fetch('Baza_zdjec');
+    const response = await fetch('Baza_zdjec.json');
     const data = await response.json();
     obrazy = data.obrazy;
     zaladujLosowyObraz();
