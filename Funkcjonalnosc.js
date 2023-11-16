@@ -1,10 +1,13 @@
 // Funkcjonalnosc.js
-var obrazy;
-var wprowadzonaOdpowiedz = '';
-var obraz = document.getElementById('obraz');
-var obecnyObrazIndex = 0;
-var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+let obrazy;
+let wprowadzonaOdpowiedz = '';
+let obraz = document.getElementById('obraz');
+let obecnyObrazIndex = 0;
+let poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 const wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
+
+document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('DOMContentLoaded', pobierzBazeDanych);
 
 async function pobierzBazeDanych() {
     try {
@@ -15,12 +18,11 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie wartosci domyslnych dla brakujacych pól
-            obrazy = data.obrazy.map(obraz => ({
-                id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytulu",
-                lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
-                odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
+            obrazy = data.obrazy.map(({ id = 0, tytul = "Brak tytulu", lokalizacja = "Brak lokalizacji", odpowiedz = "Brak odpowiedzi" }) => ({
+                id,
+                tytul,
+                lokalizacja,
+                odpowiedz
             }));
 
             zaladujLosowyObraz();
@@ -38,13 +40,13 @@ function zaladujLosowyObraz() {
 }
 
 function zaladujObraz() {
-    const aktualnyObraz = obrazy[obecnyObrazIndex];
-    obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
+    const { lokalizacja, odpowiedz } = obrazy[obecnyObrazIndex];
+    obraz.src = lokalizacja;
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${odpowiedz}`;
 }
 
 function dodajLitera(litera, event) {
-    const enterKeyCode = 13; // Kod klawisza Enter
+    const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
         sprawdzOdpowiedz();
         return;
@@ -80,11 +82,8 @@ function aktualizujWprowadzonaOdpowiedz() {
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
     const odpowiedz = wprowadzonaOdpowiedz.toLowerCase();
 
-    if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-    } else {
-        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
-    }
+    const wynikElement = document.getElementById("wynik");
+    wynikElement.textContent = odpowiedz === poprawnaOdpowiedz ? "Odpowiedz poprawna!" : "Odpowiedz niepoprawna. Spróbuj ponownie.";
 
     obecnyObrazIndex++;
     if (obecnyObrazIndex < obrazy.length) {
@@ -93,21 +92,17 @@ function aktualizujWprowadzonaOdpowiedz() {
         aktualizujWprowadzonaOdpowiedz();
         usunWprowadzoneLitery();
     } else {
-        document.getElementById("wynik").textContent = "Gra zakonczona!";
+        wynikElement.textContent = "Gra zakonczona!";
     }
 }
 
-document.addEventListener('keydown', function (event) {
+function handleKeyDown(event) {
     if (event.key.length === 1) {
         dodajLitera(event.key.toUpperCase(), event);
     } else if (event.key === 'Backspace') {
         usunLitera();
     }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    pobierzBazeDanych();
-});
+}
 
 function usunWprowadzoneLitery() {
     wprowadzoneLiteryContainer.innerHTML = '';
