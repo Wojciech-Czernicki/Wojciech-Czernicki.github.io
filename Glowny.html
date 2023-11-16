@@ -1,61 +1,150 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
-    <title>Gra - Odgadnij Obraz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra z obrazkami</title>
     <style>
-        body {
-            background-color: black;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            color: white;
+        /* Style dla wprowadzonych liter */
+        .wprowadzona-litera {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 5px;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
-        h1 {
-            margin-bottom: 20px;
+        /* Dodatkowe style dla wyœwietlania komunikatu o b³êdzie */
+        #wynik {
+            font-weight: bold;
+            margin-top: 10px;
         }
 
-        #obraz {
-            width: 80vw;
-            height: 80vw;
-            max-width: 400px;
-            max-height: 400px;
-            border: 5px solid gray;
-            object-fit: cover;
-        }
-
-        #wprowadzoneLitery {
-            display: grid;
-            grid-template-columns: repeat(20, 1fr);
-            gap: 5px;
-            justify-items: center;
-            margin-top: 20px;
-        }
-
-        .litera {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            border: none;
-        }
-
-        p {
-            margin-top: 20px;
-            font-size: 24px;
-        }
+        /* Doda³em kilka podstawowych style do elementów, dostosuj je wed³ug potrzeb */
     </style>
 </head>
 <body>
-<h1>Odgadnij, Co Jest na Obrazie</h1>
-<img id="obraz" src="" alt="Obraz">
-<input type="hidden" id="odpowiedz">
-<p id="wynik"></p>
-<div id="wprowadzonaOdpowiedz"></div>
-<div id="wprowadzoneLitery"></div>
-<script src="Funkcjonalnosc.js"></script>
+    <img id="obraz" src="" alt="Obraz">
+    <div id="poprawnaOdpowiedz"></div>
+    <div id="wprowadzoneLitery"></div>
+    <input type="text" id="odpowiedz" onkeydown="dodajLitera(event.key.toUpperCase(), event)">
+    <div id="wynik"></div>
+
+    <script>
+        let obrazy;
+        let wprowadzonaOdpowiedz = '';
+        let obraz = document.getElementById('obraz');
+        let obecnyObrazIndex = 0;
+        let poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+        const wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
+
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('DOMContentLoaded', pobierzBazeDanych);
+
+        async function pobierzBazeDanych() {
+            try {
+                const response = await fetch('Baza.json');
+                if (!response.ok) {
+                    throw new Error(`Nieudane pobieranie danych. Kod odpowiedzi: ${response.status}`);
+                }
+                const data = await response.json();
+
+                if (Array.isArray(data.obrazy)) {
+                    obrazy = data.obrazy.map(({ id = 0, lokalizacja = "Brak lokalizacji", odpowiedz = "Brak odpowiedzi" }) => ({
+                        id,
+                        lokalizacja,
+                        odpowiedz
+                    }));
+
+                    zaladujLosowyObraz();
+                } else {
+                    throw new Error('Niepoprawny format danych w pliku JSON.');
+                }
+            } catch (error) {
+                console.error('Blad pobierania danych:', error);
+                wyswietlBlad('Wyst¹pi³ b³¹d podczas pobierania danych. Spróbuj ponownie póŸniej.');
+            }
+        }
+
+        function zaladujLosowyObraz() {
+            obecnyObrazIndex = Math.floor(Math.random() * obrazy.length);
+            zaladujObraz();
+        }
+
+        function zaladujObraz() {
+            const { lokalizacja, odpowiedz } = obrazy[obecnyObrazIndex];
+            obraz.src = lokalizacja;
+            poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${odpowiedz}`;
+        }
+
+        function dodajLitera(litera, event) {
+            const enterKeyCode = 13;
+            if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
+                sprawdzOdpowiedz();
+                return;
+            }
+            if (wprowadzonaOdpowiedz.length < 25) {
+                wprowadzonaOdpowiedz += litera;
+                aktualizujWprowadzonaOdpowiedz();
+                dodajDoWprowadzonychLiter(litera);
+            }
+        }
+
+        function dodajDoWprowadzonychLiter(litera) {
+            const literaElement = document.createElement('div');
+            literaElement.classList.add('wprowadzona-litera');
+            literaElement.textContent = litera;
+            wprowadzoneLiteryContainer.appendChild(literaElement);
+        }
+
+        function usunLitera() {
+            wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
+            aktualizujWprowadzonaOdpowiedz();
+            usunZwprowadzonychLiter();
+        }
+
+        function usunZwprowadzonychLiter() {
+            const ostatniaLitera = wprowadzoneLiteryContainer.lastElementChild;
+            if (ostatniaLitera) {
+                wprowadzoneLiteryContainer.removeChild(ostatniaLitera);
+            }
+        }
+
+        function aktualizujWprowadzonaOdpowiedz() {
+            const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
+            const odpowiedz = wprowadzonaOdpowiedz.toLowerCase();
+
+            const wynikElement = document.getElementById("wynik");
+            wynikElement.textContent = odpowiedz === poprawnaOdpowiedz ? "Odpowiedz poprawna!" : "Odpowiedz niepoprawna. Spróbuj ponownie.";
+
+            obecnyObrazIndex++;
+            if (obecnyObrazIndex < obrazy.length) {
+                zaladujObraz();
+                document.getElementById("odpowiedz").value = "";
+                aktualizujWprowadzonaOdpowiedz();
+                usunWprowadzoneLitery();
+            } else {
+                wynikElement.textContent = "Gra zakonczona!";
+            }
+        }
+
+        function handleKeyDown(event) {
+            if (event.key.length === 1) {
+                dodajLitera(event.key.toUpperCase(), event);
+            } else if (event.key === 'Backspace') {
+                usunLitera();
+            }
+        }
+
+        function usunWprowadzoneLitery() {
+            wprowadzoneLiteryContainer.innerHTML = '';
+        }
+
+        function wyswietlBlad(blad) {
+            const wynikElement = document.getElementById("wynik");
+            wynikElement.textContent = blad;
+        }
+    </script>
 </body>
 </html>
