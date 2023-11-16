@@ -15,10 +15,10 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie warto�ci domy�lnych dla brakuj�cych p�l
+            // Ustawienie wartosci domyslnych dla brakujacych p�l
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytu�u",
+                tytul: obraz.tytul || "Brak tytulu",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -28,38 +28,24 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('B��d pobierania danych:', error);
+        console.error('Blad pobierania danych:', error);
     }
-    const response = await fetch('Baza_zdjec.json');
-    const data = await response.json();
-    obrazy = data.obrazy;
-    zaladujLosowyObraz();
 }
 
-
-
 function zaladujLosowyObraz() {
-    const minId = 1;
-    const maxId = 4;
-    obecnyObrazIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
     obecnyObrazIndex = Math.floor(Math.random() * obrazy.length);
     zaladujObraz();
 }
 
-
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowied�: ${aktualnyObraz.odpowiedz}`;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
 }
-function dodajLitera(litera, event) {
-    const enterKeyCode = 13;
-    if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
 
-function dodajLitera(litera) {
+function dodajLitera(litera, event) {
     const enterKeyCode = 13; // Kod klawisza Enter
-    if (litera === 'Enter' || event.keyCode === enterKeyCode) {
+    if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
         sprawdzOdpowiedz();
         return;
     }
@@ -92,59 +78,37 @@ function usunZwprowadzonychLiter() {
 
 function aktualizujWprowadzonaOdpowiedz() {
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
+    const odpowiedz = wprowadzonaOdpowiedz.toLowerCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowied� poprawna!";
-        document.getElementById("wynik").textContent = "Odpowiedź poprawna!";
+        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
     } else {
-        document.getElementById("wynik").textContent = "Odpowied� niepoprawna. Spr�buj ponownie.";
-        document.getElementById("wynik").textContent = "Odpowiedź niepoprawna. Spróbuj ponownie.";
+        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spr�buj ponownie.";
     }
 
-    // Przejd� do nast�pnego obrazu
-    // Przejdź do następnego obrazu
     obecnyObrazIndex++;
     if (obecnyObrazIndex < obrazy.length) {
         zaladujObraz();
         document.getElementById("odpowiedz").value = "";
-        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczy�� wy�wietlon� odpowied�
-        document.getElementById("wprowadzonaOdpowiedz").textContent = "";
+        aktualizujWprowadzonaOdpowiedz();
         usunWprowadzoneLitery();
     } else {
-        document.getElementById("wynik").textContent = "Gra zako�czona!";
-        document.getElementById("wynik").textContent = "Gra zakończona!";
+        document.getElementById("wynik").textContent = "Gra zakonczona!";
     }
 }
 
-// Obs�uga klawiatury
 document.addEventListener('keydown', function (event) {
+    if (event.key.length === 1) {
+        dodajLitera(event.key.toUpperCase(), event);
+    } else if (event.key === 'Backspace') {
+        usunLitera();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    pobierzBazeDanych();
+});
+
 function usunWprowadzoneLitery() {
     wprowadzoneLiteryContainer.innerHTML = '';
 }
-
-// Obsługa klawiatury
-document.addEventListener('keydown', function(event) {
-    if (event.key.length === 1) {
-        dodajLitera(event.key.toUpperCase());
-    } else if (event.key === 'Backspace') {
-    }
-});
-
-// Rozpocznij gr� po za�adowaniu strony
-document.addEventListener('DOMContentLoaded', function () {
-}
-// Rozpocznij grę po załadowaniu strony
-document.addEventListener('DOMContentLoaded', function() {
-    pobierzBazeDanych();
-});
-
-function rozpocznijGre() {
-    // Ukryj ekran pocz�tkowy
-    document.getElementById('startScreen').style.display = 'none';
-
-    // Poka� ekran gry
-    document.getElementById('graScreen').style.display = 'flex';
-
-    // Rozpocznij gr�
-    pobierzBazeDanych();
-    }
