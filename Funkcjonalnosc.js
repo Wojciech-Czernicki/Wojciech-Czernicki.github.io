@@ -15,10 +15,10 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie wartoúci domyúlnych dla brakujπcych pÛl
+            // Ustawienie warto≈õci domy≈õlnych dla brakujƒÖcych p√≥l
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytu≥u",
+                tytul: obraz.tytul || "Brak tytu≈Çu",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -28,7 +28,7 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('B≥πd pobierania danych:', error);
+        console.error('B≈ÇƒÖd pobierania danych:', error);
     }
 }
 
@@ -45,7 +45,7 @@ function zaladujLosowyObraz() {
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedü: ${aktualnyObraz.odpowiedz}`;
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowied≈∫: ${aktualnyObraz.odpowiedz}`;
 }
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
@@ -77,7 +77,7 @@ function sprawdzOdpowiedz() {
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
         
-        // Przejdz do nastepnego obrazu po krÛtkim opÛznieniu
+        // Przejdz do nastepnego obrazu po kr√≥tkim op√≥znieniu
         // Przejdz do nastepnego obrazu
 obecnyObrazIndex++;
 if (obecnyObrazIndex < obrazy.length) {
@@ -88,15 +88,15 @@ if (obecnyObrazIndex < obrazy.length) {
 } else {
     document.getElementById("wynik").textContent = "Gra zakonczona!";
 }
- // OpÛznienie 1000 milisekund (1 sekunda)
+ // Op√≥znienie 1000 milisekund (1 sekunda)
     } else {
-        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. SprÛbuj ponownie.";
+        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spr√≥buj ponownie.";
     }
 }
 
 
 
-// Obs≥uga klawiatury
+// Obs≈Çuga klawiatury
 document.addEventListener('keydown', function (event) {
     if (event.key.length === 1) {
         dodajLitera(event.key.toUpperCase());
@@ -107,17 +107,8 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Rozpocznij grÍ po za≥adowaniu strony
+// Rozpocznij grƒô po za≈Çadowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
-function rozpocznijGre() {
-    // Ukryj ekran poczπtkowy
-    document.getElementById('startScreen').style.display = 'none';
-
-    // Pokaø ekran gry
-    document.getElementById('graScreen').style.display = 'flex';
-
-    // Rozpocznij grÍ
-    pobierzBazeDanych();
