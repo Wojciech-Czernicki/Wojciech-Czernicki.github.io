@@ -15,10 +15,10 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie warto�ci domy�lnych dla brakuj�cych p�l
+            // Ustawienie wartoœci domyœlnych dla brakuj¹cych pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytu�u",
+                tytul: obraz.tytul || "Brak tytu³u",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -28,7 +28,7 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('B��d pobierania danych:', error);
+        console.error('B³¹d pobierania danych:', error);
     }
 }
 
@@ -45,7 +45,7 @@ function zaladujLosowyObraz() {
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowied�: ${aktualnyObraz.odpowiedz}`;
+    poprawnaOdpowiedzElement.textContent = `Poprawna OdpowiedŸ: ${aktualnyObraz.odpowiedz}`;
 }
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
@@ -75,23 +75,23 @@ function sprawdzOdpowiedz() {
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowied� poprawna!";
+        document.getElementById("wynik").textContent = "OdpowiedŸ poprawna!";
     } else {
-        document.getElementById("wynik").textContent = "Odpowied� niepoprawna. Spr�buj ponownie.";
+        document.getElementById("wynik").textContent = "OdpowiedŸ niepoprawna. Spróbuj ponownie.";
     }
 
-    // Przejd� do nast�pnego obrazu
+    // PrzejdŸ do nastêpnego obrazu
     obecnyObrazIndex++;
     if (obecnyObrazIndex < obrazy.length) {
         zaladujObraz();
         document.getElementById("odpowiedz").value = "";
-        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczy�� wy�wietlon� odpowied�
+        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyœæ wyœwietlon¹ odpowiedŸ
     } else {
-        document.getElementById("wynik").textContent = "Gra zako�czona!";
+        document.getElementById("wynik").textContent = "Gra zakoñczona!";
     }
 }
 
-// Obs�uga klawiatury
+// Obs³uga klawiatury
 document.addEventListener('keydown', function (event) {
     if (event.key.length === 1) {
         dodajLitera(event.key.toUpperCase());
@@ -102,18 +102,18 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-// Rozpocznij gr� po za�adowaniu strony
+// Rozpocznij grê po za³adowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
 function rozpocznijGre() {
-    // Ukryj ekran pocz�tkowy
+    // Ukryj ekran pocz¹tkowy
     document.getElementById('startScreen').style.display = 'none';
 
-    // Poka� ekran gry
+    // Poka¿ ekran gry
     document.getElementById('graScreen').style.display = 'flex';
 
-    // Rozpocznij gr�
+    // Rozpocznij grê
     pobierzBazeDanych();
 }
