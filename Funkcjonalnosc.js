@@ -112,3 +112,14 @@ document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
+/*
+function rozpocznijGre() {
+    // Ukryj ekran początkowy
+    document.getElementById('startScreen').style.display = 'none';
+
+    // Pokaż ekran gry
+    document.getElementById('graScreen').style.display = 'flex';
+
+    // Rozpocznij grę
+    pobierzBazeDanych();
+*/
