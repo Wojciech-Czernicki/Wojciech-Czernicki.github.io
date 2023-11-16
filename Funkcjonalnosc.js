@@ -132,6 +132,7 @@ document.addEventListener('keydown', function(event) {
 
 // Rozpocznij gr� po za�adowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
+}
 // Rozpocznij grę po załadowaniu strony
 document.addEventListener('DOMContentLoaded', function() {
     pobierzBazeDanych();
@@ -146,4 +147,4 @@ function rozpocznijGre() {
 
     // Rozpocznij gr�
     pobierzBazeDanych();
-}
+    }
