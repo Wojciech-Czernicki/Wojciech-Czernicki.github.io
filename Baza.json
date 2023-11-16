@@ -1,5 +1,6 @@
-[
-    {
+{
+  "obrazy": [
+{
       "id": 1,
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.png",
       "odpowiedz": "13 Willow Street"
@@ -20,4 +21,5 @@
       "lokalizacja": "Obrazy/CS2/Zdjecie_1.jpg",
       "odpowiedz": "Overpass"
     }
-]
+  ]
+}
