@@ -2,18 +2,18 @@
   "obrazy": [
     {
       "id": 1,
-      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.jpg",
+      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.jp",
       "odpowiedz": "13 Willow Street"
     },
     {
       "id": 2,
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_2.jpg",
-      "odpowiedz": "Prison",
+      "odpowiedz": "Prison"
     },
     {
       "id": 3,
-      "tytul": "Prison | Phasmophobia",
-      "odpowiedz": "Prison",
+      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_3.jpg",
+      "odpowiedz": "Prison"
     },
     {
       "id": 4,
