@@ -75,37 +75,20 @@ function sprawdzOdpowiedz() {
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowiedź poprawna!";
-        
-        // Przejdź do następnego obrazu po krótkim opóźnieniu
-        setTimeout(() => {
-            obecnyObrazIndex++;
-            if (obecnyObrazIndex < obrazy.length) {
-                zaladujObraz();
-                document.getElementById("odpowiedz").value = "";
-                document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyść wyświetloną odpowiedź
-                document.getElementById("wynik").textContent = ""; // Wyczyść komunikat o wyniku
-            } else {
-                document.getElementById("wynik").textContent = "Gra zakończona!";
-            }
-        }, 1000); // Opóźnienie 1000 milisekund (1 sekunda)
+        document.getElementById("wynik").textContent = "Odpowied� poprawna!";
     } else {
-        document.getElementById("wynik").textContent = "Odpowiedź niepoprawna. Spróbuj ponownie.";
+        document.getElementById("wynik").textContent = "Odpowied� niepoprawna. Spr�buj ponownie.";
     }
-}
 
-
-// Przejdź do następnego obrazu
-obecnyObrazIndex++;
-if (obecnyObrazIndex < obrazy.length) {
-    zaladujObraz();
-    document.getElementById("odpowiedz").value = "";
-    document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyść wyświetloną odpowiedź
-    document.getElementById("wynik").textContent = ""; // Wyczyść komunikat o wyniku
-} else {
-    document.getElementById("wynik").textContent = "Gra zakończona!";
-}
-
+    // Przejd� do nast�pnego obrazu
+    obecnyObrazIndex++;
+    if (obecnyObrazIndex < obrazy.length) {
+        zaladujObraz();
+        document.getElementById("odpowiedz").value = "";
+        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczy�� wy�wietlon� odpowied�
+    } else {
+        document.getElementById("wynik").textContent = "Gra zako�czona!";
+    }
 }
 
 // Obs�uga klawiatury
