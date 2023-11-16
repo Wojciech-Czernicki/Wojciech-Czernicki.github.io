@@ -14,7 +14,7 @@ async function pobierzBazeDanych() {
         }
         const data = await response.json();
 
-        if (Array.isArray(data.obrazy)) {
+        if (Array.isArray(data.obraz)) {
             // Ustawienie wartoœci domyœlnych dla brakuj¹cych pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
