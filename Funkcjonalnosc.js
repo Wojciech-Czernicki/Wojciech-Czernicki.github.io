@@ -1,7 +1,7 @@
 // Funkcjonalnosc.js
 var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
-var obecnyObrazIndex = 1;
+var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 
 async function pobierzBazeDanych() {
