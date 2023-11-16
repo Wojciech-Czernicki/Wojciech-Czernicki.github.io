@@ -3,6 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     startButton.addEventListener('click', function() {
         // Po klikniêciu przycisku, przekieruj do strony gry
-        window.location.href = 'gra.html';
+        window.location.href = 'Glowny.html';
     });
 });
