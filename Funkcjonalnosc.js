@@ -6,7 +6,7 @@ var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 var wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
 
 async function pobierzBazeDanych() {
-    const response = await fetch('Baza_zdjec.json');
+    const response = await fetch('Baza.json');
     const data = await response.json();
     obrazy = data.obrazy;
     zaladujLosowyObraz();
