@@ -1,9 +1,9 @@
 // Funkcjonalnosc.js
-let wprowadzonaOdpowiedz = '';
-const obraz = document.getElementById('obraz');
+ver wprowadzonaOdpowiedz = '';
+ver obraz = document.getElementById('obraz');
 let obecnyObrazIndex = 0;
-const poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-const wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
+ver poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+ver wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
 
 async function pobierzBazeDanych() {
     const response = await fetch('Baza_zdjec.json');
