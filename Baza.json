@@ -1,6 +1,12 @@
 {
   "obrazy": [
     {
+      "id": 1,
+      "tytul": "13 Willow Street | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_1.png",
+      "odpowiedz": "Phasmophobia"
+    },
+    {
       "id": 2,
       "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_2.jpg",
       "odpowiedz": "Phasmophobia",
