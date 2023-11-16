@@ -36,7 +36,7 @@ async function pobierzBazeDanych() {
 
 function zaladujLosowyObraz() {
     const minId = 1;
-    const maxId = 4;
+    const maxId = 3;
     obecnyObrazIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
     zaladujObraz();
 }
