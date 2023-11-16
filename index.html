@@ -11,14 +11,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Zmiana na flex-start, aby elementy były ustawione przy górnej krawędzi */
             height: 100vh;
             margin: 0;
             color: white;
+            overflow: hidden; /* Ukrycie ewentualnych nadmiarów treści */
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-top: 20px; /* Dodanie marginesu na górze h1 */
         }
 
         #startButton {
@@ -26,11 +27,23 @@
             font-size: 16px;
             cursor: pointer;
         }
+
+        #obrazContainer {
+            width: 100%; /* Obraz zajmuje 100% szerokości */
+            overflow: hidden; /* Ukrycie ewentualnych nadmiarów obrazu */
+        }
+
+        #obraz {
+            width: 100%; /* Obraz zajmuje 100% szerokości kontenera */
+        }
     </style>
 </head>
 <body>
-    <img src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny" width="300">
+    <div id="obrazContainer">
+        <img src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
+    </div>
 
+    <h1>Gra - Odgadnij Obraz!</h1>
     <button id="startButton">Rozpocznij Grę</button>
 
     <script src="startowa.js"></script>
