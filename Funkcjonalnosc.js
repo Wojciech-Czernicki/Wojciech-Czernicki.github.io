@@ -1,12 +1,11 @@
 // Funkcjonalnosc.js
-ver wprowadzonaOdpowiedz = '';
-ver obraz = document.getElementById('obraz');
-let obecnyObrazIndex = 0;
-ver poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-ver wprowadzoneLiteryContainer = document.getElementById('wprowadzoneLitery');
+var wprowadzonaOdpowiedz = '';
+var obraz = document.getElementById('obraz');
+var obecnyObrazIndex = 0;
+var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 
 async function pobierzBazeDanych() {
-    const response = await fetch('Baza_zdjec.json');
+    const response = await fetch('Baza_zdjec');
     const data = await response.json();
     obrazy = data.obrazy;
     zaladujLosowyObraz();
@@ -33,28 +32,12 @@ function dodajLitera(litera) {
     if (wprowadzonaOdpowiedz.length < 25) {
         wprowadzonaOdpowiedz += litera;
         aktualizujWprowadzonaOdpowiedz();
-        dodajDoWprowadzonychLiter(litera);
     }
-}
-
-function dodajDoWprowadzonychLiter(litera) {
-    const literaElement = document.createElement('div');
-    literaElement.classList.add('wprowadzona-litera');
-    literaElement.textContent = litera;
-    wprowadzoneLiteryContainer.appendChild(literaElement);
 }
 
 function usunLitera() {
     wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
     aktualizujWprowadzonaOdpowiedz();
-    usunZwprowadzonychLiter();
-}
-
-function usunZwprowadzonychLiter() {
-    const ostatniaLitera = wprowadzoneLiteryContainer.lastElementChild;
-    if (ostatniaLitera) {
-        wprowadzoneLiteryContainer.removeChild(ostatniaLitera);
-    }
 }
 
 function aktualizujWprowadzonaOdpowiedz() {
@@ -76,15 +59,10 @@ function sprawdzOdpowiedz() {
     if (obecnyObrazIndex < obrazy.length) {
         zaladujObraz();
         document.getElementById("odpowiedz").value = "";
-        document.getElementById("wprowadzonaOdpowiedz").textContent = "";
-        usunWprowadzoneLitery();
+        document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczyœæ wyœwietlon¹ odpowiedŸ
     } else {
         document.getElementById("wynik").textContent = "Gra zakoñczona!";
     }
-}
-
-function usunWprowadzoneLitery() {
-    wprowadzoneLiteryContainer.innerHTML = '';
 }
 
 // Obs³uga klawiatury
@@ -102,3 +80,14 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     pobierzBazeDanych();
 });
+
+function rozpocznijGre() {
+    // Ukryj ekran pocz¹tkowy
+    document.getElementById('startScreen').style.display = 'none';
+    
+    // Poka¿ ekran gry
+    document.getElementById('graScreen').style.display = 'flex';
+
+    // Rozpocznij grê
+    pobierzBazeDanych();
+}
