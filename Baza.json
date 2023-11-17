@@ -2,22 +2,159 @@
   "obrazy": [
     {
       "id": 1,
-      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_2.jpg",
-      "odpowiedz": "Phasmophobia",
-      "tytul": "Prison | Phasmophobia"
+      "lokalizacja": "Obrazy/Phasmophobia/13 Willow Street/Zdjecie_2.jpg",
+      "odpowiedz": "13 Willow Street",
+      "tytul": "13 Willow Street | Phasmophobia"
     },
     {
       "id": 2,
-      "tytul": "Prison | Phasmophobia",
-      "lokalizacja": "Obrazy/Phasmophobia/Zdjecie_3.jpg",
-      "odpowiedz": "Phasmophobia"
+      "tytul": "13 Willow Street | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/13 Willow Street/Zdjecie_3.jpg",
+      "odpowiedz": "13 Willow Street"
     },
     {
       "id": 3,
       "tytul": "Overpass | CS2",
-      "lokalizacja": "Obrazy/CS2/Zdjecie_1.jpg",
-      "odpowiedz": "CS2"
-    }
-
+      "lokalizacja": "Obrazy/CS2/Overpass/Zdjecie_1.jpg",
+      "odpowiedz": "Overpass"
+    },
+    {
+      "id": 4,
+      "tytul": "Overpass | CS2",
+      "lokalizacja": "Obrazy/CS2/Overpass/Zdjecie_2.jpg",
+      "odpowiedz": "Overpass"
+    },
+    {
+      "id": 5,
+      "tytul": "Overpass | CS2",
+      "lokalizacja": "Obrazy/CS2/Overpass/Zdjecie_3.jpg",
+      "odpowiedz": "Overpass"
+    },
+    {
+      "id": 6,
+      "tytul": "Overpass | CS2",
+      "lokalizacja": "Obrazy/CS2/Overpass/Zdjecie_4.jpg",
+      "odpowiedz": "Overpass"
+    },
+    {
+      "id": 7,
+      "tytul": "Overpass | CS2",
+      "lokalizacja": "Obrazy/CS2/Overpass/Zdjecie_5.jpg",
+      "odpowiedz": "Overpass"
+    },
+    {
+      "id": 8,
+      "tytul": "13 Willow Street | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/13 Willow Street/Zdjecie_1.jpg",
+      "odpowiedz": "13 Willow Street"
+    },
+            {
+      "id": 9,
+      "tytul": "Prison | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Prison/Zdjecie_1.jpg",
+      "odpowiedz": "Prison"
+    },
+    {
+      "id": 10,
+      "tytul": "Prison | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Prison/Zdjecie_2.jpg",
+      "odpowiedz": "Prison"
+    },
+    {
+      "id": 11,
+      "tytul": "Sunny Meadows | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Sunny Meadows/Zdjecie_1.jpg",
+      "odpowiedz": "Sunny Meadows"
+    },
+    {
+      "id": 12,
+      "tytul": "Sunny Meadows | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Sunny Meadows/Zdjecie_2.jpg",
+      "odpowiedz": "Sunny Meadows"
+    },
+    {
+      "id": 13,
+      "tytul": "Sunny Meadows | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Sunny Meadows/Zdjecie_3.jpg",
+      "odpowiedz": "Sunny Meadows"
+    },
+    {
+      "id": 14,
+      "tytul": "Sunny Meadows | Phasmophobia",
+      "lokalizacja": "Obrazy/Phasmophobia/Sunny Meadows/Zdjecie_4.jpg",
+      "odpowiedz": "Sunny Meadows"
+    },
+    {
+      "id": 15,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_1.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 16,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_2.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 17,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_3.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 18,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_4.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 19,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_5.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 20,
+      "tytul": "Office | CS2",
+      "lokalizacja": "Obrazy/CS2/Office/Zdjecie_6.jpg",
+      "odpowiedz": "Office"
+    },
+    {
+      "id": 21,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_1.jpg",
+      "odpowiedz": "Mirage"
+    },
+        {
+      "id": 22,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_2.jpg",
+      "odpowiedz": "Mirage"
+    },
+        {
+      "id": 23,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_3.jpg",
+      "odpowiedz": "Mirage"
+    },
+        {
+      "id": 24,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_4.jpg",
+      "odpowiedz": "Mirage"
+    },
+        {
+      "id": 25,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_5.jpg",
+      "odpowiedz": "Mirage"
+    },
+        {
+      "id": 26,
+      "tytul": "Mirage | CS2",
+      "lokalizacja": "Obrazy/CS2/Mirage/Zdjecie_6.jpg",
+      "odpowiedz": "Mirage"
+    },
   ]
 }
