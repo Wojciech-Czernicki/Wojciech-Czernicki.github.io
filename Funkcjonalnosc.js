@@ -7,7 +7,6 @@ var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 
-
 async function pobierzBazeDanych() {
     try {
         const response = await fetch('Baza.json');
@@ -72,8 +71,8 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    const odpowiedz = document.getElementById("odpowiedz").value.toLowerCase();
-    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
+    const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
+    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
