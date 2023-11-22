@@ -61,6 +61,7 @@ function dodajLitera(litera, event) {
 }
 
 
+
 function usunLitera() {
     wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
     aktualizujWprowadzonaOdpowiedz();
