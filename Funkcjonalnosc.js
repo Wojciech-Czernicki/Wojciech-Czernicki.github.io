@@ -4,6 +4,8 @@ var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
 var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
+const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 
 
 async function pobierzBazeDanych() {
