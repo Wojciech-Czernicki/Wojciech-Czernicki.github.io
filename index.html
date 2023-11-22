@@ -29,20 +29,21 @@
         }
 
         #obrazContainer {
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             overflow: hidden;
         }
 
         #obraz {
             width: 100%;
-            transform: translateY(-20px); /* Podniesienie obrazu o 20 pikseli */
-            transform: translateX(center); /* Podniesienie obrazu o 20 pikseli */
         }
     </style>
 </head>
 <body>
     <div id="obrazContainer">
-        <img src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
+        <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
     </div>
     <button id="startButton">Rozpocznij Grę</button>
 
