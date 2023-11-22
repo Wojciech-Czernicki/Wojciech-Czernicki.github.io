@@ -71,7 +71,7 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    const odpowiedz = document.getElementById("odpowiedz").value.toLowerCase());
+    const odpowiedz = document.getElementById("odpowiedz").value.toLowerCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
 
     if (odpowiedz === poprawnaOdpowiedz) {
