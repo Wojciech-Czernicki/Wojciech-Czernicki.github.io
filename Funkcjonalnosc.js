@@ -60,8 +60,6 @@ function dodajLitera(litera, event) {
     }
 }
 
-
-
 function usunLitera() {
     wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
     aktualizujWprowadzonaOdpowiedz();
@@ -78,20 +76,24 @@ function sprawdzOdpowiedz() {
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
         
-        // Przejdz do nastepnego obrazu po kr贸tkim op贸znieniu
-        // Przejdz do nastepnego obrazu
-obecnyObrazIndex++;
-if (obecnyObrazIndex < obrazy.length) {
-    zaladujObraz();
-    document.getElementById("odpowiedz").value = "";
-    document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
-    document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-} else {
-    document.getElementById("wynik").textContent = "Gra zakonczona!";
-}
- // Op贸znienie 1000 milisekund (1 sekunda)
+        // Przejdz do nastepnego obrazu po kr髏kim op髗nieniu
+        obecnyObrazIndex++;
+        if (obecnyObrazIndex < obrazy.length) {
+            zaladujObraz();
+            document.getElementById("odpowiedz").value = "";
+            document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
+            document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
+        } else {
+            document.getElementById("wynik").textContent = "Gra zakonczona!";
+        }
     } else {
-        document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spr贸buj ponownie.";
+        iloscNiepoprawnychOdpowiedzi++;
+
+        if (iloscNiepoprawnychOdpowiedzi >= maksymalnaIloscNiepoprawnychOdpowiedzi) {
+            document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
+        } else {
+            document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spr骲uj ponownie.";
+        }
     }
 }
 
