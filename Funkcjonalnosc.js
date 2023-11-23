@@ -74,6 +74,9 @@ function sprawdzOdpowiedz() {
     const odpowiedz = document.getElementById("odpowiedz").value.toLowerCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toLowerCase();
 
+    console.log("odpowiedz:", odpowiedz);
+    console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
+
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
         
