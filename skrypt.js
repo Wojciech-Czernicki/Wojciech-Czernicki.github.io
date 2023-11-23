@@ -1,8 +1,9 @@
 document.getElementById('startButton').addEventListener('click', function () {
-    // Po klikniêciu przycisku "Start", przekieruj u¿ytkownika do strony gry.
+    // Po kliknieciu przycisku "Start", przekieruj uzytkownika do strony gry.
     window.location.href = 'Glowny.html';
-    
-    // Dodaj funkcje do sprawdzenia, czy gra zostala juz rozpoczeta
+});
+
+// Dodaj funkcje do sprawdzenia, czy gra zostala juz rozpoczeta
 function czyGraRozpoczeta() {
     return localStorage.getItem("graRozpoczeta") === "true";
 }
@@ -30,6 +31,4 @@ document.addEventListener('DOMContentLoaded', function () {
     if (czyGraRozpoczeta()) {
         cofnijDoStronyGlownej();
     }
-});
-
 });

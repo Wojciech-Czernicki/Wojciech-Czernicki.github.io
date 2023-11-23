@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gra - Odgadnij Obraz</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             background-color: black;
@@ -26,27 +27,19 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 100px; /* Dodaj margin-top według własnych preferencji */
-        }
-
-        #obrazContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        #obraz {
-            width: 100%;
+            margin-top: 100px;
         }
     </style>
 </head>
 <body>
-    <div id="obrazContainer">
-        <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
-    </div>
+    <h1>Odgadnij, Co Jest na Obrazie</h1>
     <button id="startButton">Rozpocznij Grę</button>
-        <script src="skrypt.js"></script>
+    <script src="skrypt.js"></script>
+    <script>
+        document.getElementById('startButton').addEventListener('click', function () {
+            // Po kliknięciu przycisku "Start", przekieruj użytkownika do strony gry.
+            rozpocznijGre();
+        });
+    </script>
 </body>
 </html>
