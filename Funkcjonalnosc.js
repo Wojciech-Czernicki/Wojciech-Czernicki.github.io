@@ -46,19 +46,22 @@ function zaladujLosowyObraz() {
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
-}
-function dodajLitera(litera, event) {
-    const enterKeyCode = 13;
-    if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
-        sprawdzOdpowiedz();
-        return;
-    }
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
 
-    if (wprowadzonaOdpowiedz.length < 25) {
-        wprowadzonaOdpowiedz += litera;
+    // Dodaj nasluchiwanie zdarzenia dla pola odpowiedzi
+    const odpowiedzInput = document.getElementById("odpowiedz");
+    odpowiedzInput.value = ""; // Wyczysc pole odpowiedzi przy kazdym zaladowaniu nowego obrazu
+
+    odpowiedzInput.addEventListener("input", function (event) {
+        wprowadzonaOdpowiedz = event.target.value.toUpperCase();
         aktualizujWprowadzonaOdpowiedz();
-    }
+    });
+
+    odpowiedzInput.addEventListener("keydown", function (event) {
+        if (event.key === 'Enter') {
+            sprawdzOdpowiedz();
+        }
+    });
 }
 
 function usunLitera() {
@@ -71,7 +74,7 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
+    const odpowiedz = wprowadzonaOdpowiedz;
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
     console.log("odpowiedz:", odpowiedz);
