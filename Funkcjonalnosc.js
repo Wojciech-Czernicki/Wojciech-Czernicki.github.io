@@ -4,8 +4,8 @@ var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
 var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-var iloscNiepoprawnychOdpowiedzi = 0;
-const maksymalnaIloscNiepoprawnychOdpowiedzi = 5;
+var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
+const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 
 async function pobierzBazeDanych() {
     try {
@@ -16,9 +16,10 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
+            // Ustawienie wartości domyślnych dla brakujących pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytulu",
+                tytul: obraz.tytul || "Brak tytułu",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -28,9 +29,11 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('Blad pobierania danych:', error);
+        console.error('Błąd pobierania danych:', error);
     }
 }
+
+
 
 function zaladujLosowyObraz() {
     const minId = 2;
@@ -39,26 +42,12 @@ function zaladujLosowyObraz() {
     zaladujObraz();
 }
 
+
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
-
-    const odpowiedzInput = document.getElementById("odpowiedz");
-    odpowiedzInput.value = wprowadzonaOdpowiedz;
-
-    odpowiedzInput.addEventListener("input", function (event) {
-        wprowadzonaOdpowiedz = event.target.value.toUpperCase();
-        aktualizujWprowadzonaOdpowiedz();
-    });
-
-    odpowiedzInput.addEventListener("keydown", function (event) {
-        if (event.key === 'Enter') {
-            sprawdzOdpowiedz();
-        }
-    });
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
 }
-
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
@@ -82,8 +71,8 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    const odpowiedz = wprowadzonaOdpowiedz;
-    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
+    const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
+    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCaseCase();
 
     console.log("odpowiedz:", odpowiedz);
     console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
@@ -91,13 +80,13 @@ function sprawdzOdpowiedz() {
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
         
+        // Przejdz do nastepnego obrazu po kr�tkim op�znieniu
         obecnyObrazIndex++;
         if (obecnyObrazIndex < obrazy.length) {
             zaladujObraz();
             document.getElementById("odpowiedz").value = "";
-            wprowadzonaOdpowiedz = "";
-            document.getElementById("wprowadzonaOdpowiedz").textContent = "";
-            document.getElementById("wynik").textContent = "";
+            document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
+            document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
         }
@@ -112,6 +101,9 @@ function sprawdzOdpowiedz() {
     }
 }
 
+
+
+// Obsługa klawiatury
 document.addEventListener('keydown', function (event) {
     if (event.key.length === 1) {
         dodajLitera(event.key.toUpperCase());
@@ -122,12 +114,18 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+// Rozpocznij grę po załadowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
 function rozpocznijGre() {
+    // Ukryj ekran początkowy
     document.getElementById('startScreen').style.display = 'none';
+
+    // Pokaż ekran gry
     document.getElementById('graScreen').style.display = 'flex';
+
+    // Rozpocznij grę
     pobierzBazeDanych();
 }
