@@ -11,7 +11,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             height: 100vh;
             margin: 0;
             color: white;
@@ -26,27 +26,31 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            margin-top: 100px; /* Dodaj margin-top według własnych preferencji */
+            margin-top: 20px; /* Zmniejsz margin-top, aby dostosować do tekstu */
         }
 
         #obrazContainer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Ustaw maksymalną szerokość obrazu */
+            margin-top: 20px; /* Dostosuj margines top, aby oddzielić obraz od tekstu i przycisku */
         }
 
         #obraz {
             width: 100%;
+            height: auto;
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
     </style>
 </head>
 <body>
     <div id="obrazContainer">
+        <h1>Odgadnij, Co Jest na Obrazie</h1>
+        <button id="startButton">Rozpocznij Grę</button>
         <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
     </div>
-    <button id="startButton">Rozpocznij Grę</button>
-        <script src="skrypt.js"></script>
+    <script src="skrypt.js"></script>
 </body>
 </html>
