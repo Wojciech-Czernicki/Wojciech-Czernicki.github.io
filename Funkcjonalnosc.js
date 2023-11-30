@@ -72,7 +72,7 @@ function aktualizujWprowadzonaOdpowiedz() {
 
 function sprawdzOdpowiedz() {
     const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
-    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCaseCase();
+    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
     console.log("odpowiedz:", odpowiedz);
     console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
