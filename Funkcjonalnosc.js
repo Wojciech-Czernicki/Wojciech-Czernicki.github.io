@@ -84,6 +84,36 @@ function pokazObraz() {
     obraz.style.display = 'block';
 }
 
+function wyswietlOknoPorazki() {
+    const oknoPorazki = document.getElementById('oknoPorazki');
+    oknoPorazki.style.display = 'flex';
+}
+
+// Funkcja ukrywajaca okno po przegranej
+function ukryjOknoPorazki() {
+    const oknoPorazki = document.getElementById('oknoPorazki');
+    oknoPorazki.style.display = 'none';
+}
+
+// Funkcja restartujaca gre
+function zagrajPonownie() {
+    ukryjOknoPorazki();
+    iloscNiepoprawnychOdpowiedzi = 0;
+    obecnyObrazIndex = 0;
+    zaladujLosowyObraz();
+    aktualizujSerduszka();
+    pokazObraz();
+}
+
+// Funkcja zakonczajaca gre i wracajaca do indexu
+function zakoncz() {
+    ukryjOknoPorazki();
+    obecnyObrazIndex = 0;
+    iloscNiepoprawnychOdpowiedzi = 0;
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('graScreen').style.display = 'none';
+}
+
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
@@ -126,12 +156,14 @@ function sprawdzOdpowiedz() {
             aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
+            wyswietlOknoPorazki(); // Wyswietl okno po przegranej
         }
     } else {
         iloscNiepoprawnychOdpowiedzi++;
 
         if (iloscNiepoprawnychOdpowiedzi >= maksymalnaIloscNiepoprawnychOdpowiedzi) {
             document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
+            wyswietlOknoPorazki(); // Wyswietl okno po przegranej
         } else {
             document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
             aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
