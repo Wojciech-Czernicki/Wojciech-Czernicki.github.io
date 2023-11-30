@@ -4,8 +4,10 @@ var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
 var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+var serduszkaContainer = document.getElementById('serduszkaContainer');
 var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
+
 
 async function pobierzBazeDanych() {
     try {
@@ -63,18 +65,13 @@ function losujNastepnyObrazIndex() {
 
 function aktualizujSerduszka() {
     const serduszka = document.querySelectorAll('.serduszko');
-    const iloscPozostalychProb = maksymalnaIloscNiepoprawnychOdpowiedzi - iloscNiepoprawnychOdpowiedzi;
 
+    // Ukryj serduszka w zaleznosci od liczby blednych odpowiedzi
     for (let i = 0; i < serduszka.length; i++) {
-        if (i < iloscPozostalychProb) {
-            serduszka[i].style.display = 'inline-block'; // Pokaz serduszko
-        } else {
+        if (i < iloscNiepoprawnychOdpowiedzi) {
             serduszka[i].style.display = 'none'; // Ukryj serduszko
-
-            // Dodane: Jesli ukryto serduszko, ukryj obrazek
-            if (i === iloscPozostalychProb) {
-                ukryjObraz();
-            }
+        } else {
+            serduszka[i].style.display = 'inline-block'; // Pokaz serduszko
         }
     }
 }
@@ -126,7 +123,7 @@ function sprawdzOdpowiedz() {
             document.getElementById("odpowiedz").value = "";
             wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
             document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-            pokazObraz(); // Dodane: Pokaz obrazek
+            aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
         }
@@ -137,7 +134,7 @@ function sprawdzOdpowiedz() {
             document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
         } else {
             document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
-            aktualizujSerduszka(); // Dodane: Aktualizuj serduszka
+            aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
         }
     }
 }
