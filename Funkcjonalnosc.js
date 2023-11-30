@@ -44,10 +44,23 @@ function zaladujLosowyObraz() {
 
 
 function zaladujObraz() {
+    obecnyObrazIndex = losujNastepnyObrazIndex();
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
     poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
 }
+
+function losujNastepnyObrazIndex() {
+    const minId = 2;
+    const maxId = 26;
+    let losowyIndex;
+    do {
+        losowyIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
+    } while (losowyIndex === obecnyObrazIndex); // Unikaj powtarzania sie tego samego obrazu
+
+    return losowyIndex;
+}
+
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
