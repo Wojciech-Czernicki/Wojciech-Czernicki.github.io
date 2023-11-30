@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gra - Odgadnij Obraz</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="skrypt.js"></script>
     <style>
         body {
             background-color: black;
@@ -55,18 +57,33 @@
             cursor: pointer;
             border: none;
         }
+
+        /* Dodaj styl dla pola odpowiedzi */
+        #odpowiedz {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Odgadnij, Co Jest na Obrazie</h1>
-        <input type="hidden" id="odpowiedz">
-    <div id="kwadrat">
-        <img id="obraz" src="" alt="Obraz">
-        
+    <div id="startScreen">
+        <!-- Ekran początkowy -->
+        <h1>Odgadnij, Co Jest na Obrazie</h1>
+        <button id="startButton">Rozpocznij Grę</button>
     </div>
-    <p id="wynik"></p>
-    <div id="wprowadzonaOdpowiedz"></div>
-    <div id="wprowadzoneLitery"></div>
-    <script src="Funkcjonalnosc.js"></script>
+    
+    <div id="graScreen" style="display: none;">
+        <!-- Ekran gry -->
+        <div id="kwadrat">
+            <img id="obraz" src="" alt="Obraz">
+        </div>
+        <h1>Odgadnij, Co Jest na Obrazie</h1>
+        <!-- Dodaj identyfikator "odpowiedz" do pola input -->
+        <input type="text" id="odpowiedz" placeholder="Wprowadź odpowiedź">
+        <p id="wynik"></p>
+        <div id="wprowadzonaOdpowiedz"></div>
+        <div id="wprowadzoneLitery"></div>
+    </div>
 </body>
 </html>
