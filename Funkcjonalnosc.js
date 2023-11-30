@@ -1,9 +1,11 @@
+// Funkcjonalnosc.js
 var obrazy;
 var wprowadzonaOdpowiedz = '';
 var obraz = document.getElementById('obraz');
+var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-var iloscNiepoprawnychOdpowiedzi = 0;
-const maksymalnaIloscNiepoprawnychOdpowiedzi = 5;
+var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
+const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 
 async function pobierzBazeDanych() {
     try {
@@ -14,9 +16,10 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
+            // Ustawienie wartości domyślnych dla brakujących pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytulu",
+                tytul: obraz.tytul || "Brak tytułu",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -26,9 +29,11 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('Blad pobierania danych:', error);
+        console.error('Błąd pobierania danych:', error);
     }
 }
+
+
 
 function zaladujLosowyObraz() {
     const minId = 2;
@@ -37,14 +42,11 @@ function zaladujLosowyObraz() {
     zaladujObraz();
 }
 
+
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-
-    // Dodaj sprawdzenie, czy element istnieje, zanim spr�bujesz go zaktualizowac
-    if (poprawnaOdpowiedzElement) {
-        poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
-    }
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
 }
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
