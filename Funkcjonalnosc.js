@@ -1,7 +1,7 @@
-// Funkcjonalnosc.js
 var obrazy;
 var wprowadzonaOdpowiedz = '';
-var obecnyObrazIndex = 0;
+var obraz = document.getElementById('obraz');
+var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 var iloscNiepoprawnychOdpowiedzi = 0;
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5;
 
@@ -39,93 +39,12 @@ function zaladujLosowyObraz() {
 
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
-    const obraz = document.getElementById('obraz');
-    const poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
-}
 
-// reszta kodu...
-
-function dodajLitera(litera, event) {
-    const enterKeyCode = 13;
-    if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
-        sprawdzOdpowiedz();
-        return;
-    }
-
-    if (wprowadzonaOdpowiedz.length < 25) {
-        wprowadzonaOdpowiedz += litera;
-        aktualizujWprowadzonaOdpowiedz();
+    // Dodaj sprawdzenie, czy element istnieje, zanim spróbujesz go zaktualizowac
+    if (poprawnaOdpowiedzElement) {
+        poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
     }
 }
 
-function usunLitera() {
-    wprowadzonaOdpowiedz = wprowadzonaOdpowiedz.slice(0, -1);
-    aktualizujWprowadzonaOdpowiedz();
-}
-
-function aktualizujWprowadzonaOdpowiedz() {
-    document.getElementById('wprowadzonaOdpowiedz').textContent = wprowadzonaOdpowiedz;
-}
-
-function sprawdzOdpowiedz() {
-    const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
-    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
-
-    console.log("odpowiedz:", odpowiedz);
-    console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
-
-    if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-        
-        // Przejdz do nastepnego obrazu po krótkim opóznieniu
-        obecnyObrazIndex++;
-        if (obecnyObrazIndex < obrazy.length) {
-            zaladujObraz();
-            document.getElementById("odpowiedz").value = "";
-            document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
-            document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-        } else {
-            document.getElementById("wynik").textContent = "Gra zakonczona!";
-        }
-    } else {
-        iloscNiepoprawnychOdpowiedzi++;
-
-        if (iloscNiepoprawnychOdpowiedzi >= maksymalnaIloscNiepoprawnychOdpowiedzi) {
-            document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
-        } else {
-            document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
-        }
-    }
-}
-
-
-
-// ObsÅ‚uga klawiatury
-document.addEventListener('keydown', function (event) {
-    if (event.key.length === 1) {
-        dodajLitera(event.key.toUpperCase());
-    } else if (event.key === 'Backspace') {
-        usunLitera();
-    } else if (event.key === 'Enter') {
-        dodajLitera('Enter', event);
-    }
-});
-
-// Rozpocznij grÄ™ po zaÅ‚adowaniu strony
-document.addEventListener('DOMContentLoaded', function () {
-    pobierzBazeDanych();
-});
-
-function rozpocznijGre() {
-    // Ukryj ekran poczÄ…tkowy
-    document.getElementById('startScreen').style.display = 'none';
-
-    // PokaÅ¼ ekran gry
-    document.getElementById('graScreen').style.display = 'flex';
-
-    // Rozpocznij grÄ™
-    pobierzBazeDanych();
-}
+// Reszta kodu bez zmian
