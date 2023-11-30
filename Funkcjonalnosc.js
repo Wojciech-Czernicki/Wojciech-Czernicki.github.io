@@ -1,11 +1,9 @@
 // Funkcjonalnosc.js
 var obrazy;
 var wprowadzonaOdpowiedz = '';
-var obraz = document.getElementById('obraz');
 var obecnyObrazIndex = 0;
-var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
-var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
-const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
+var iloscNiepoprawnychOdpowiedzi = 0;
+const maksymalnaIloscNiepoprawnychOdpowiedzi = 5;
 
 async function pobierzBazeDanych() {
     try {
@@ -16,10 +14,9 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie wartości domyślnych dla brakujących pól
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytułu",
+                tytul: obraz.tytul || "Brak tytulu",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -29,11 +26,9 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('Błąd pobierania danych:', error);
+        console.error('Blad pobierania danych:', error);
     }
 }
-
-
 
 function zaladujLosowyObraz() {
     const minId = 2;
@@ -42,12 +37,17 @@ function zaladujLosowyObraz() {
     zaladujObraz();
 }
 
-
 function zaladujObraz() {
     const aktualnyObraz = obrazy[obecnyObrazIndex];
+    const obraz = document.getElementById('obraz');
+    const poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
+
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedź: ${aktualnyObraz.odpowiedz}`;
+    poprawnaOdpowiedzElement.textContent = `Poprawna Odpowiedz: ${aktualnyObraz.odpowiedz}`;
 }
+
+// reszta kodu...
+
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
