@@ -71,7 +71,7 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    const odpowiedz = document.getElementById("odpowiedz").value.toUpperCase();
+    const odpowiedz = wprowadzonaOdpowiedz.toUpperCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
     console.log("odpowiedz:", odpowiedz);
@@ -85,7 +85,7 @@ function sprawdzOdpowiedz() {
         if (obecnyObrazIndex < obrazy.length) {
             zaladujObraz();
             document.getElementById("odpowiedz").value = "";
-            document.getElementById("wprowadzonaOdpowiedz").textContent = ""; // Wyczysc wyswietlona odpowiedz
+            wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
             document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
