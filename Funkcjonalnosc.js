@@ -61,6 +61,19 @@ function losujNastepnyObrazIndex() {
     return losowyIndex;
 }
 
+function aktualizujSerduszka() {
+    const serduszka = document.querySelectorAll('.serduszko');
+    const iloscPozostalychProb = maksymalnaIloscNiepoprawnychOdpowiedzi - iloscNiepoprawnychOdpowiedzi;
+
+    for (let i = 0; i < serduszka.length; i++) {
+        if (i < iloscPozostalychProb) {
+            serduszka[i].style.display = 'inline-block'; // Pokaz serduszko
+        } else {
+            serduszka[i].style.display = 'none'; // Ukryj serduszko
+        }
+    }
+}
+
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
