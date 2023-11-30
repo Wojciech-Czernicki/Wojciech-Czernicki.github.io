@@ -70,8 +70,21 @@ function aktualizujSerduszka() {
             serduszka[i].style.display = 'inline-block'; // Pokaz serduszko
         } else {
             serduszka[i].style.display = 'none'; // Ukryj serduszko
+
+            // Dodane: Jesli ukryto serduszko, ukryj obrazek
+            if (i === iloscPozostalychProb) {
+                ukryjObraz();
+            }
         }
     }
+}
+
+function ukryjObraz() {
+    obraz.style.display = 'none';
+}
+
+function pokazObraz() {
+    obraz.style.display = 'block';
 }
 
 function dodajLitera(litera, event) {
@@ -113,6 +126,7 @@ function sprawdzOdpowiedz() {
             document.getElementById("odpowiedz").value = "";
             wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
             document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
+            pokazObraz(); // Dodane: Pokaz obrazek
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
         }
@@ -123,6 +137,7 @@ function sprawdzOdpowiedz() {
             document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
         } else {
             document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
+            aktualizujSerduszka(); // Dodane: Aktualizuj serduszka
         }
     }
 }
