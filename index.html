@@ -40,12 +40,14 @@
             font-size: 16px;
             cursor: pointer;
             margin-top: 20px; /* Dodaj margines top dla przycisku */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* Przesunięcie o połowę szerokości przycisku w lewo */
         }
     </style>
 </head>
 <body>
     <div id="obrazContainer">
-        <h1>Odgadnij, Co Jest na Obrazie</h1>
         <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
         <button id="startButton">Rozpocznij Grę</button>
     </div>
