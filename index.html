@@ -22,34 +22,32 @@
             margin-top: 20px;
         }
 
-        #startButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px; /* Zmniejsz margin-top, aby dostosować do tekstu */
-        }
-
         #obrazContainer {
             position: relative;
             width: 100%;
             max-width: 400px; /* Ustaw maksymalną szerokość obrazu */
-            margin-top: 20px; /* Dostosuj margines top, aby oddzielić obraz od tekstu i przycisku */
+            margin-top: 20px; /* Dostosuj margines top, aby oddzielić obraz od tekstu */
         }
 
         #obraz {
             width: 100%;
             height: auto;
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            position: relative; /* Zmiana na relatywną, aby przycisk mógł być ustawiony pod obrazem */
+        }
+
+        #startButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px; /* Dodaj margines top dla przycisku */
         }
     </style>
 </head>
 <body>
     <div id="obrazContainer">
         <h1>Odgadnij, Co Jest na Obrazie</h1>
-        <button id="startButton">Rozpocznij Grę</button>
         <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
+        <button id="startButton">Rozpocznij Grę</button>
     </div>
     <script src="skrypt.js"></script>
 </body>
