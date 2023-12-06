@@ -84,6 +84,7 @@
             background: rgba(0, 0, 0, 0.7);
             justify-content: center;
             align-items: center;
+            flex-direction: column;
         }
 
         #oknoZwyciestwa p, #oknoPorazki p {
@@ -121,19 +122,19 @@
     <div id="wprowadzoneLitery"></div>
 
     <!-- Nowe elementy dla okna zwycięstwa -->
-    <div id="oknoZwyciestwa">
-        <p>Gratulacje! Zdobyłeś 5 poprawnych odpowiedzi!</p>
-        <button onclick="zagrajPonownieZwyciestwo()">Zagraj Ponownie</button>
-        <button onclick="zakonczZwyciestwo()">Wyjście</button>
-    </div>
+<div id="oknoZwyciestwa">
+    <p>Gratulacje! Zdobyłeś 5 poprawnych odpowiedzi!</p>
+    <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
+    <button onclick="zakonczZwyciestwo()">Wyjście</button>
+</div>
 
-    <!-- Nowe elementy dla okna porażki -->
-    <div id="oknoPorazki">
-        <p>Niestety, przekroczyłeś limit niepoprawnych odpowiedzi.</p>
-        <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
-        <button onclick="zakoncz()">Wyjście</button>
-    </div>
+<!-- Nowe elementy dla okna porażki -->
+<div id="oknoPorazki">
+    <p>Niestety, przekroczyłeś limit niepoprawnych odpowiedzi.</p>
+    <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
+    <button onclick="zakonczZwyciestwo()">Wyjście</button>
+</div>
 
-    <script src="Funkcjonalnosc.js"></script>
+<script src="Funkcjonalnosc.js"></script>
 </body>
 </html>
