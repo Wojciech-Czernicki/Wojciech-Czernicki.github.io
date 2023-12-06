@@ -98,7 +98,6 @@ function zagrajPonownie() {
     obecnyObrazIndex = 0;
     zaladujLosowyObraz();
     aktualizujSerduszka();
-    window.location.reload(); // Odswiez strone
     pokazObraz();
 }
 
@@ -110,11 +109,6 @@ function zakoncz() {
     document.getElementById('startScreen').style.display = 'flex';
     document.getElementById('graScreen').style.display = 'none';
 }
-
-document.getElementById('zakoncz').addEventListener('click', function () {
-    // Po kliknieciu przycisku "Start", przekieruj uzytkownika do strony gry.
-    window.location.href = 'Glowny.html';
-});
 
 // Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
 function wyswietlOknoZwyciestwa() {
@@ -137,7 +131,16 @@ function zagrajPonownieZwyciestwo() {
     aktualizujSerduszka();
     pokazObraz();
 }
-  
+
+// Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
+function zakonczZwyciestwo() {
+    ukryjOknoZwyciestwa();
+    obecnyObrazIndex = 0;
+    iloscNiepoprawnychOdpowiedzi = 0;
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('graScreen').style.display = 'none';
+}
+
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
