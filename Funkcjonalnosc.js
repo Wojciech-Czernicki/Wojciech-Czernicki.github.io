@@ -8,7 +8,6 @@ var serduszkaContainer = document.getElementById('serduszkaContainer');
 var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 
-
 async function pobierzBazeDanych() {
     try {
         const response = await fetch('Baza.json');
@@ -35,15 +34,12 @@ async function pobierzBazeDanych() {
     }
 }
 
-
-
 function zaladujLosowyObraz() {
     const minId = 2;
     const maxId = 26;
     obecnyObrazIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
     zaladujObraz();
 }
-
 
 function zaladujObraz() {
     obecnyObrazIndex = losujNastepnyObrazIndex();
@@ -95,7 +91,7 @@ function ukryjOknoPorazki() {
     oknoPorazki.style.display = 'none';
 }
 
-// Funkcja restartujaca gre
+// Funkcja restartujaca gre po przegranej
 function zagrajPonownie() {
     ukryjOknoPorazki();
     iloscNiepoprawnychOdpowiedzi = 0;
@@ -105,9 +101,40 @@ function zagrajPonownie() {
     pokazObraz();
 }
 
-// Funkcja zakonczajaca gre i wracajaca do indexu
+// Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
 function zakoncz() {
     ukryjOknoPorazki();
+    obecnyObrazIndex = 0;
+    iloscNiepoprawnychOdpowiedzi = 0;
+    document.getElementById('startScreen').style.display = 'flex';
+    document.getElementById('graScreen').style.display = 'none';
+}
+
+// Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
+function wyswietlOknoZwyciestwa() {
+    const oknoZwyciestwa = document.getElementById('oknoZwyciestwa');
+    oknoZwyciestwa.style.display = 'flex';
+}
+
+// Funkcja ukrywajaca okno po zwyciestwie
+function ukryjOknoZwyciestwa() {
+    const oknoZwyciestwa = document.getElementById('oknoZwyciestwa');
+    oknoZwyciestwa.style.display = 'none';
+}
+
+// Funkcja restartujaca gre po zwyciestwie
+function zagrajPonownieZwyciestwo() {
+    ukryjOknoZwyciestwa();
+    iloscNiepoprawnychOdpowiedzi = 0;
+    obecnyObrazIndex = 0;
+    zaladujLosowyObraz();
+    aktualizujSerduszka();
+    pokazObraz();
+}
+
+// Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
+function zakonczZwyciestwo() {
+    ukryjOknoZwyciestwa();
     obecnyObrazIndex = 0;
     iloscNiepoprawnychOdpowiedzi = 0;
     document.getElementById('startScreen').style.display = 'flex';
@@ -145,7 +172,7 @@ function sprawdzOdpowiedz() {
 
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-        
+
         // Przejdz do nastepnego obrazu po krótkim opóznieniu
         obecnyObrazIndex++;
         if (obecnyObrazIndex < obrazy.length) {
@@ -156,7 +183,7 @@ function sprawdzOdpowiedz() {
             aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
         } else {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
-            wyswietlOknoPorazki(); // Wyswietl okno po przegranej
+            wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
         }
     } else {
         iloscNiepoprawnychOdpowiedzi++;
@@ -170,8 +197,6 @@ function sprawdzOdpowiedz() {
         }
     }
 }
-
-
 
 // ObsÅ‚uga klawiatury
 document.addEventListener('keydown', function (event) {
