@@ -109,8 +109,12 @@ function zakoncz() {
     iloscNiepoprawnychOdpowiedzi = 0;
     document.getElementById('startScreen').style.display = 'flex';
     document.getElementById('graScreen').style.display = 'none';
-    window.location.href = 'index.html';
 }
+
+document.getElementById('zakoncz').addEventListener('click', function () {
+    // Po kliknieciu przycisku "Start", przekieruj uzytkownika do strony gry.
+    window.location.href = 'Glowny.html';
+});
 
 // Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
 function wyswietlOknoZwyciestwa() {
