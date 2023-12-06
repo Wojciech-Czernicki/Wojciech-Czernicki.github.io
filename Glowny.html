@@ -21,17 +21,17 @@
         }
 
         #kwadrat {
-            width: 80vw;
-            height: 80vw;
-            max-width: 400px;
-            max-height: 400px;
-            border: 5px solid gray;
+            width: 80vw; /* Dostosuj szerokość kwadratu do wielkości ekranu */
+            height: 80vw; /* Ustaw wysokość na podstawie szerokości, aby zachować proporcje */
+            max-width: 400px; /* Ustaw maksymalną szerokość kwadratu */
+            max-height: 400px; /* Ustaw maksymalną wysokość kwadratu */
+            border: 5px solid gray; /* Dodaj szarą obramówkę */
         }
 
         #obraz {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; /* 100% szerokości wewnątrz kontenera kwadratu */
+            height: 100%; /* 100% wysokości wewnątrz kontenera kwadratu */
+            object-fit: cover; /* Zachowaj proporcje obrazu i wypełnij kontener kwadratem */
         }
 
         #wprowadzonaOdpowiedz {
@@ -43,7 +43,7 @@
         #graContainer {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: flex-start; /* Dodane, aby serduszka były ustawione od góry */
         }
 
         #serduszkaContainer {
@@ -52,9 +52,9 @@
 
         .serduszko {
             margin-top: 10px;
-            width: 30px;
+            width: 30px; /* Dostosuj szerokość serduszka według potrzeb */
             height: auto;
-            margin-right: 10px;
+            margin-right: 10px; /* Dostosuj margines prawy według potrzeb */
         }
 
         #wprowadzoneLitery {
@@ -72,7 +72,7 @@
             cursor: pointer;
             border: none;
         }
-
+        
         /* Nowe style dla okna zwycięstwa i porażki */
         #oknoZwyciestwa, #oknoPorazki {
             display: none;
@@ -86,13 +86,11 @@
             align-items: center;
             flex-direction: column;
         }
-
         #oknoZwyciestwa p, #oknoPorazki p {
             color: white;
             font-size: 24px;
             text-align: center;
         }
-
         #oknoZwyciestwa button, #oknoPorazki button {
             margin-top: 20px;
             padding: 10px;
@@ -106,26 +104,27 @@
 </head>
 <body>
     <h1>Odgadnij, Co Jest na Obrazie</h1>
-    <input type="hidden" id="odpowiedz">
+        <input type="hidden" id="odpowiedz">
     <div id="kwadrat">
         <img id="obraz" src="" alt="Obraz">
+        
     </div>
     <div id="serduszkaContainer">
-        <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 1">
-        <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 2">
-        <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 3">
-        <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 4">
-        <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 5">
-    </div>
+    <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 1">
+    <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 2">
+    <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 3">
+    <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 4">
+    <img class="serduszko" src="Obrazy_Wizualne/Zycie.jpg" alt="Serduszko 5">
+</div>
+
+
     <p id="wynik"></p>
     <div id="wprowadzonaOdpowiedz"></div>
     <div id="wprowadzoneLitery"></div>
-
-    <!-- Nowe elementy dla okna zwycięstwa -->
-<div id="oknoZwyciestwa">
+    <div id="oknoZwyciestwa">
     <p>Gratulacje! Zdobyłeś 5 poprawnych odpowiedzi!</p>
-    <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
-    <button onclick="zakoncz()">Wyjście</button>
+    <button onclick="zagrajPonownieZwyciestwo()">Zagraj Ponownie</button>
+    <button onclick="zakonczZwyciestwo()">Wyjście</button>
 </div>
 
 <!-- Nowe elementy dla okna porażki -->
@@ -134,7 +133,6 @@
     <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
     <button onclick="zakoncz()">Wyjście</button>
 </div>
-
-<script src="Funkcjonalnosc.js"></script>
+    <script src="Funkcjonalnosc.js"></script>
 </body>
 </html>
