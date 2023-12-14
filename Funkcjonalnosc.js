@@ -105,6 +105,7 @@ function zagrajPonownie() {
     zaladujLosowyObraz();
     aktualizujSerduszka();
     pokazObraz();
+    location.reload();
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
@@ -138,6 +139,7 @@ function zagrajPonownieZwyciestwo() {
     zaladujLosowyObraz();
     aktualizujSerduszka();
     pokazObraz();
+    location.reload();
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
