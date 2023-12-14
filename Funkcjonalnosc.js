@@ -7,6 +7,7 @@ var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 var serduszkaContainer = document.getElementById('serduszkaContainer');
 var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
+var liczbaPoprawnychOdpowiedzi = 0;
 
 async function pobierzBazeDanych() {
     try {
@@ -173,17 +174,25 @@ function sprawdzOdpowiedz() {
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
 
-        // Przejdz do nastepnego obrazu po krótkim opóznieniu
-        obecnyObrazIndex++;
-        if (obecnyObrazIndex < obrazy.length) {
-            zaladujObraz();
-            document.getElementById("odpowiedz").value = "";
-            wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
-            document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-            aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
-        } else {
+        // Zwieksz licznik poprawnych odpowiedzi
+        liczbaPoprawnychOdpowiedzi++;
+
+        if (liczbaPoprawnychOdpowiedzi >= 5) {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
             wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
+        } else {
+            // Przejdz do nastepnego obrazu po krótkim opóznieniu
+            obecnyObrazIndex++;
+            if (obecnyObrazIndex < obrazy.length) {
+                zaladujObraz();
+                document.getElementById("odpowiedz").value = "";
+                wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
+                document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
+                aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
+            } else {
+                document.getElementById("wynik").textContent = "Gra zakonczona!";
+                wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
+            }
         }
     } else {
         iloscNiepoprawnychOdpowiedzi++;
