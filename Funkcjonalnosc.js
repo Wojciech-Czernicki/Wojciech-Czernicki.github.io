@@ -8,7 +8,11 @@ var serduszkaContainer = document.getElementById('serduszkaContainer');
 var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
 const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
 var liczbaPoprawnychOdpowiedzi = 0;
-
+var czyGraZakonczona = false;
+    
+    const odpowiedz = wprowadzonaOdpowiedz.toUpperCase();
+    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
+    
 async function pobierzBazeDanych() {
     try {
         const response = await fetch('Baza.json');
@@ -94,6 +98,7 @@ function ukryjOknoPorazki() {
 
 // Funkcja restartujaca gre po przegranej
 function zagrajPonownie() {
+    czyGraZakonczona = false;
     ukryjOknoPorazki();
     iloscNiepoprawnychOdpowiedzi = 0;
     obecnyObrazIndex = 0;
@@ -104,6 +109,7 @@ function zagrajPonownie() {
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
 function zakoncz() {
+    czyGraZakonczona = false;
     ukryjOknoPorazki();
     obecnyObrazIndex = 0;
     iloscNiepoprawnychOdpowiedzi = 0;
@@ -125,6 +131,7 @@ function ukryjOknoZwyciestwa() {
 
 // Funkcja restartujaca gre po zwyciestwie
 function zagrajPonownieZwyciestwo() {
+    czyGraZakonczona = false;
     ukryjOknoZwyciestwa();
     iloscNiepoprawnychOdpowiedzi = 0;
     obecnyObrazIndex = 0;
@@ -135,6 +142,7 @@ function zagrajPonownieZwyciestwo() {
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
 function zakonczZwyciestwo() {
+    czyGraZakonczona = false;
     ukryjOknoZwyciestwa();
     obecnyObrazIndex = 0;
     iloscNiepoprawnychOdpowiedzi = 0;
@@ -165,6 +173,11 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
+    // Sprawdz, czy gra jest zakonczona
+    if (czyGraZakonczona) {
+        return;
+    }
+
     const odpowiedz = wprowadzonaOdpowiedz.toUpperCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
@@ -179,6 +192,7 @@ function sprawdzOdpowiedz() {
 
         if (liczbaPoprawnychOdpowiedzi >= 5) {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
+            czyGraZakonczona = true;
             wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
         } else {
             // Przejdz do nastepnego obrazu po krótkim opóznieniu
@@ -191,6 +205,7 @@ function sprawdzOdpowiedz() {
                 aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
             } else {
                 document.getElementById("wynik").textContent = "Gra zakonczona!";
+                czyGraZakonczona = true;
                 wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
             }
         }
@@ -199,6 +214,7 @@ function sprawdzOdpowiedz() {
 
         if (iloscNiepoprawnychOdpowiedzi >= maksymalnaIloscNiepoprawnychOdpowiedzi) {
             document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
+            czyGraZakonczona = true;
             wyswietlOknoPorazki(); // Wyswietl okno po przegranej
         } else {
             document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
@@ -206,6 +222,7 @@ function sprawdzOdpowiedz() {
         }
     }
 }
+
 
 // ObsÅ‚uga klawiatury
 document.addEventListener('keydown', function (event) {
