@@ -138,12 +138,11 @@ function zagrajPonownieZwyciestwo() {
 // Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
 function zakonczZwyciestwo() {
     czyGraZakonczona = false;
-    ukryjOknoZwyciestwa();
+    ukryjOknoPorazki();
     obecnyObrazIndex = 0;
     iloscNiepoprawnychOdpowiedzi = 0;
-    document.getElementById('startScreen').style.display = 'flex';
-    document.getElementById('graScreen').style.display = 'none';
-    window.location.href = 'index.html';
+
+    window.location.href = 'index.html'; // Bezpoœrednie przekierowanie
 }
 
 function dodajLitera(litera, event) {
