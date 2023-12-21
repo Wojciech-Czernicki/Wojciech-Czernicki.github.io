@@ -143,6 +143,7 @@ function zakonczZwyciestwo() {
     iloscNiepoprawnychOdpowiedzi = 0;
     document.getElementById('startScreen').style.display = 'flex';
     document.getElementById('graScreen').style.display = 'none';
+    window.location.href = 'index.html';
 }
 
 function dodajLitera(litera, event) {
