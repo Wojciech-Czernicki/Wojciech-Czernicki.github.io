@@ -225,12 +225,15 @@ function sprawdzOdpowiedz() {
 
 // ObsÅ‚uga klawiatury
 document.addEventListener('keydown', function (event) {
-    if (event.key.length === 1 && /^[a-z]$/i.test(event.key)) { // Dodano warunek, aby akceptowaæ tylko litery
-        dodajLitera(event.key.toUpperCase());
-    } else if (event.key === 'Backspace') {
-        usunLitera();
-    } else if (event.key === 'Enter') {
-        sprawdzOdpowiedz();
+    // Akceptuj litery, cyfry i spacjê
+    if ((event.key.length === 1 && /^[a-z0-9 ]$/i.test(event.key)) || event.key === 'Backspace' || event.key === 'Enter') {
+        if (event.key === 'Enter') {
+            sprawdzOdpowiedz();
+        } else if (event.key === 'Backspace') {
+            usunLitera();
+        } else {
+            dodajLitera(event.key.toUpperCase());
+        }
     }
 });
 
