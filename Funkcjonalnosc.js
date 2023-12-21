@@ -109,8 +109,10 @@ function zakoncz() {
     iloscNiepoprawnychOdpowiedzi = 0;
     document.getElementById('startScreen').style.display = 'flex';
     document.getElementById('graScreen').style.display = 'none';
-    window.location.href = 'index.html';
 
+    setTimeout(function() {
+        window.location.href = 'index.html';
+    }, 1000); // Przekierowanie po 1 sekundzie
 }
 
 // Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
