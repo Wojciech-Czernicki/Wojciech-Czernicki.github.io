@@ -107,12 +107,8 @@ function zakoncz() {
     ukryjOknoPorazki();
     obecnyObrazIndex = 0;
     iloscNiepoprawnychOdpowiedzi = 0;
-    document.getElementById('startScreen').style.display = 'flex';
-    document.getElementById('graScreen').style.display = 'none';
 
-    setTimeout(function() {
-        window.location.href = 'index.html';
-    }, 1000); // Przekierowanie po 1 sekundzie
+    window.location.href = 'index.html'; // Bezpoœrednie przekierowanie
 }
 
 // Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
