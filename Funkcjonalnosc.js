@@ -123,28 +123,6 @@ function ukryjOknoZwyciestwa() {
     oknoZwyciestwa.style.display = 'none';
 }
 
-// Funkcja restartujaca gre po zwyciestwie
-function zagrajPonownieZwyciestwo() {
-    czyGraZakonczona = false;
-    ukryjOknoZwyciestwa();
-    iloscNiepoprawnychOdpowiedzi = 0;
-    obecnyObrazIndex = 0;
-    zaladujLosowyObraz();
-    aktualizujSerduszka();
-    pokazObraz();
-    location.reload();
-}
-
-// Funkcja zakonczajaca gre i wracajaca do indexu po zwyciestwie
-function zakonczZwyciestwo() {
-    czyGraZakonczona = false;
-    ukryjOknoPorazki();
-    obecnyObrazIndex = 0;
-    iloscNiepoprawnychOdpowiedzi = 0;
-
-    window.location.href = 'index.html'; // Bezpoœrednie przekierowanie
-}
-
 function dodajLitera(litera, event) {
     const enterKeyCode = 13;
     if (litera === 'Enter' || (event && event.keyCode === enterKeyCode)) {
@@ -179,26 +157,22 @@ function sprawdzOdpowiedz() {
     console.log("odpowiedz:", odpowiedz);
     console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
 
-    if (odpowiedz === poprawnaOdpowiedz) {
-        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
+if (odpowiedz === poprawnaOdpowiedz) {
+    document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
+    liczbaPoprawnychOdpowiedzi++;
 
-        // Zwieksz licznik poprawnych odpowiedzi
-        liczbaPoprawnychOdpowiedzi++;
-
-        if (liczbaPoprawnychOdpowiedzi >= 5) {
-            document.getElementById("wynik").textContent = "Gra zakonczona!";
-            czyGraZakonczona = true;
-            wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
-        } else {
-            // Przejdz do nastepnego obrazu po krótkim opóznieniu
-            obecnyObrazIndex++;
-            if (obecnyObrazIndex < obrazy.length) {
-                zaladujObraz();
-                document.getElementById("odpowiedz").value = "";
-                wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
-                document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-                aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
-            } else {
+    if (liczbaPoprawnychOdpowiedzi >= 5) {
+        document.getElementById("wynik").textContent = "Gra zakonczona!";
+        czyGraZakonczona = true;
+        wyswietlOknoZwyciestwa();
+    } else {
+        zaladujLosowyObraz(); // Wywo³anie funkcji losuj¹cej nowy obraz
+        document.getElementById("odpowiedz").value = "";
+        wprowadzonaOdpowiedz = "";
+        document.getElementById("wynik").textContent = "";
+        aktualizujSerduszka();
+    }
+} else {
                 document.getElementById("wynik").textContent = "Gra zakonczona!";
                 czyGraZakonczona = true;
                 wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
