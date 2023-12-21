@@ -5,14 +5,11 @@ var obraz = document.getElementById('obraz');
 var obecnyObrazIndex = 0;
 var poprawnaOdpowiedzElement = document.getElementById('poprawnaOdpowiedz');
 var serduszkaContainer = document.getElementById('serduszkaContainer');
-var iloscNiepoprawnychOdpowiedzi = 0; // Dodaj zmienna do sledzenia liczby niepoprawnych odpowiedzi
-const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; // Ustaw maksymalna ilosc niepoprawnych odpowiedzi
+var iloscNiepoprawnychOdpowiedzi = 0; 
+const maksymalnaIloscNiepoprawnychOdpowiedzi = 5; 
 var liczbaPoprawnychOdpowiedzi = 0;
 var czyGraZakonczona = false;
-    
-    const odpowiedz = wprowadzonaOdpowiedz.toUpperCase();
-    const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
-    
+
 async function pobierzBazeDanych() {
     try {
         const response = await fetch('Baza.json');
@@ -22,10 +19,9 @@ async function pobierzBazeDanych() {
         const data = await response.json();
 
         if (Array.isArray(data.obrazy)) {
-            // Ustawienie wartoÅ›ci domyÅ›lnych dla brakujÄ…cych pÃ³l
             obrazy = data.obrazy.map(obraz => ({
                 id: obraz.id || 0,
-                tytul: obraz.tytul || "Brak tytuÅ‚u",
+                tytul: obraz.tytul || "Brak tytu³u",
                 lokalizacja: obraz.lokalizacja || "Brak lokalizacji",
                 odpowiedz: obraz.odpowiedz || "Brak odpowiedzi"
             }));
@@ -35,31 +31,28 @@ async function pobierzBazeDanych() {
             throw new Error('Niepoprawny format danych w pliku JSON.');
         }
     } catch (error) {
-        console.error('BÅ‚Ä…d pobierania danych:', error);
+        console.error('B³¹d pobierania danych:', error);
     }
 }
 
 function zaladujLosowyObraz() {
-    const minId = 2;
-    const maxId = 26;
-    obecnyObrazIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
+    obecnyObrazIndex = losujNastepnyObrazIndex();
     zaladujObraz();
 }
 
 function zaladujObraz() {
-    obecnyObrazIndex = losujNastepnyObrazIndex();
     const aktualnyObraz = obrazy[obecnyObrazIndex];
     obraz.src = aktualnyObraz.lokalizacja;
-    poprawnaOdpowiedzElement.textContent = `Poprawna OdpowiedÅº: ${aktualnyObraz.odpowiedz}`;
+    poprawnaOdpowiedzElement.textContent = `Poprawna OdpowiedŸ: ${aktualnyObraz.odpowiedz}`;
 }
 
 function losujNastepnyObrazIndex() {
-    const minId = 2;
-    const maxId = 26;
+    const minId = 0; // Zmieniono na 0, aby zacz¹æ od pierwszego elementu tablicy
+    const maxId = obrazy.length - 1; // Ustawienie maksymalnego indeksu na d³ugoœæ tablicy minus jeden
     let losowyIndex;
     do {
         losowyIndex = Math.floor(Math.random() * (maxId - minId + 1)) + minId;
-    } while (losowyIndex === obecnyObrazIndex); // Unikaj powtarzania sie tego samego obrazu
+    } while (losowyIndex === obecnyObrazIndex); 
 
     return losowyIndex;
 }
@@ -228,27 +221,22 @@ function sprawdzOdpowiedz() {
 
 // ObsÅ‚uga klawiatury
 document.addEventListener('keydown', function (event) {
-    if (event.key.length === 1) {
+    if (event.key.length === 1 && /^[a-z]$/i.test(event.key)) { // Dodano warunek, aby akceptowaæ tylko litery
         dodajLitera(event.key.toUpperCase());
     } else if (event.key === 'Backspace') {
         usunLitera();
     } else if (event.key === 'Enter') {
-        dodajLitera('Enter', event);
+        sprawdzOdpowiedz();
     }
 });
 
-// Rozpocznij grÄ™ po zaÅ‚adowaniu strony
+// Rozpocznij grê po za³adowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
     pobierzBazeDanych();
 });
 
 function rozpocznijGre() {
-    // Ukryj ekran poczÄ…tkowy
     document.getElementById('startScreen').style.display = 'none';
-
-    // PokaÅ¼ ekran gry
     document.getElementById('graScreen').style.display = 'flex';
-
-    // Rozpocznij grÄ™
     pobierzBazeDanych();
 }
