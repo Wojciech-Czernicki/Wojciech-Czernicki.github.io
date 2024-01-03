@@ -157,27 +157,30 @@ function sprawdzOdpowiedz() {
     console.log("odpowiedz:", odpowiedz);
     console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
 
-if (odpowiedz === poprawnaOdpowiedz) {
-    document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-    liczbaPoprawnychOdpowiedzi++;
+    if (odpowiedz === poprawnaOdpowiedz) {
+        document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
 
-    if (liczbaPoprawnychOdpowiedzi >= 5) {
-        document.getElementById("wynik").textContent = "Gra zakonczona!";
-        czyGraZakonczona = true;
-        wyswietlOknoZwyciestwa();
-    } else {
-        zaladujLosowyObraz(); // Wywo³anie funkcji losuj¹cej nowy obraz
-        document.getElementById("odpowiedz").value = "";
-        wprowadzonaOdpowiedz = "";
-        document.getElementById("wynik").textContent = "";
-        aktualizujSerduszka();
-    }
-} else {
+        // Zwieksz licznik poprawnych odpowiedzi
+        liczbaPoprawnychOdpowiedzi++;
+
+        if (liczbaPoprawnychOdpowiedzi >= 5) {
+            document.getElementById("wynik").textContent = "Gra zakonczona!";
+            czyGraZakonczona = true;
+            wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
+        } else {
+            // Przejdz do nastepnego obrazu po krótkim opóznieniu
+            obecnyObrazIndex++;
+            if (obecnyObrazIndex < obrazy.length) {
+                zaladujObraz();
+                document.getElementById("odpowiedz").value = "";
+                wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
+                document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
+                aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
+            } else {
                 document.getElementById("wynik").textContent = "Gra zakonczona!";
                 czyGraZakonczona = true;
                 wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
             }
-        }
     } else {
         iloscNiepoprawnychOdpowiedzi++;
 
