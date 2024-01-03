@@ -146,7 +146,6 @@ function aktualizujWprowadzonaOdpowiedz() {
 }
 
 function sprawdzOdpowiedz() {
-    // Sprawdz, czy gra jest zakonczona
     if (czyGraZakonczona) {
         return;
     }
@@ -154,46 +153,34 @@ function sprawdzOdpowiedz() {
     const odpowiedz = wprowadzonaOdpowiedz.toUpperCase();
     const poprawnaOdpowiedz = obrazy[obecnyObrazIndex].odpowiedz.toUpperCase();
 
-    console.log("odpowiedz:", odpowiedz);
-    console.log("poprawnaOdpowiedz:", poprawnaOdpowiedz);
-
     if (odpowiedz === poprawnaOdpowiedz) {
         document.getElementById("wynik").textContent = "Odpowiedz poprawna!";
-
-        // Zwieksz licznik poprawnych odpowiedzi
         liczbaPoprawnychOdpowiedzi++;
 
         if (liczbaPoprawnychOdpowiedzi >= 5) {
             document.getElementById("wynik").textContent = "Gra zakonczona!";
             czyGraZakonczona = true;
-            wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
+            wyswietlOknoZwyciestwa();
         } else {
-            // Przejdz do nastepnego obrazu po krótkim opóznieniu
-            obecnyObrazIndex++;
-            if (obecnyObrazIndex < obrazy.length) {
-                zaladujObraz();
-                document.getElementById("odpowiedz").value = "";
-                wprowadzonaOdpowiedz = ""; // Zeruj przechowywana odpowiedz
-                document.getElementById("wynik").textContent = ""; // Wyczysc komunikat o wyniku
-                aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
-            } else {
-                document.getElementById("wynik").textContent = "Gra zakonczona!";
-                czyGraZakonczona = true;
-                wyswietlOknoZwyciestwa(); // Wyswietl okno po zdobyciu 5 poprawnych odpowiedzi
-            }
+            zaladujLosowyObraz();
+            document.getElementById("odpowiedz").value = "";
+            wprowadzonaOdpowiedz = "";
+            document.getElementById("wynik").textContent = "";
+            aktualizujSerduszka();
+        }
     } else {
         iloscNiepoprawnychOdpowiedzi++;
-
         if (iloscNiepoprawnychOdpowiedzi >= maksymalnaIloscNiepoprawnychOdpowiedzi) {
             document.getElementById("wynik").textContent = "Przekroczyles limit niepoprawnych odpowiedzi. Gra zakonczona!";
             czyGraZakonczona = true;
-            wyswietlOknoPorazki(); // Wyswietl okno po przegranej
+            wyswietlOknoPorazki();
         } else {
             document.getElementById("wynik").textContent = "Odpowiedz niepoprawna. Spróbuj ponownie.";
-            aktualizujSerduszka(); // Aktualizuj widocznosc serduszek
+            aktualizujSerduszka();
         }
     }
 }
+
 
 
 // ObsÅ‚uga klawiatury
