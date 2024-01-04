@@ -205,5 +205,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function rozpocznijGre() {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('graScreen').style.display = 'flex';
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('aktywatorKlawiatury').focus();
+});
     pobierzBazeDanych();
 }
