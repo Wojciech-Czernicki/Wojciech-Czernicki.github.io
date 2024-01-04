@@ -93,11 +93,13 @@
         }
 
         #oknoZwyciestwa button, #oknoPorazki button {
-            margin-top: 20px;
+            margin-top: 5px;
             padding: 10px;
-            background-color: #4CAF50;
+            background-color: #ff0000;
             color: white;
             border: none;
+            text-shadow: 1px 1px 2px black;
+            transition: background-color 0.3s ease;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -122,14 +124,12 @@
 
     <!-- Nowe elementy dla okna zwycięstwa -->
     <div id="oknoZwyciestwa">
-        <p>Gratulacje! Zdobyłeś 5 poprawnych odpowiedzi!</p>
         <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
         <button onclick="zakoncz()">Wyjście</button>
     </div>
 
     <!-- Nowe elementy dla okna porażki -->
     <div id="oknoPorazki">
-        <p>Niestety, przekroczyłeś limit niepoprawnych odpowiedzi.</p>
         <button onclick="zagrajPonownie()">Zagraj Ponownie</button>
         <button onclick="zakoncz()">Wyjście</button>
     </div>
