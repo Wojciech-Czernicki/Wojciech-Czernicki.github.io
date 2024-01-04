@@ -91,7 +91,7 @@ function ukryjOknoPorazki() {
 
 // Funkcja restartujaca gre po przegranej
 function zagrajPonownie() {
-location.reload()
+window.location.reload();
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
