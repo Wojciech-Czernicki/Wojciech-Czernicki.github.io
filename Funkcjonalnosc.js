@@ -91,16 +91,7 @@ function ukryjOknoPorazki() {
 
 // Funkcja restartujaca gre po przegranej
 function zagrajPonownie() {
-    czyGraZakonczona = false;
-    ukryjOknoPorazki();
-    iloscNiepoprawnychOdpowiedzi = 0;
-    liczbaPoprawnychOdpowiedzi = 0;
-    obecnyObrazIndex = 0;
-    zaladujLosowyObraz();
-    aktualizujSerduszka();
-    pokazObraz();
-    location.reload();
-    resetujSerduszka(); 
+location.reload()
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
