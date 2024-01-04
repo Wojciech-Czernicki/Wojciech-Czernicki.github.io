@@ -94,11 +94,13 @@ function zagrajPonownie() {
     czyGraZakonczona = false;
     ukryjOknoPorazki();
     iloscNiepoprawnychOdpowiedzi = 0;
+    liczbaPoprawnychOdpowiedzi = 0;
     obecnyObrazIndex = 0;
     zaladujLosowyObraz();
     aktualizujSerduszka();
     pokazObraz();
     location.reload();
+    resetujSerduszka(); 
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
@@ -110,6 +112,13 @@ function zakoncz() {
 
     window.location.href = 'index.html'; // Bezpoœrednie przekierowanie
 }
+function resetujSerduszka() {
+    const serduszka = document.querySelectorAll('.serduszko');
+    serduszka.forEach(serduszko => {
+        serduszko.style.display = 'inline-block';
+    });
+}
+
 
 // Funkcja wywolujaca sie po zdobyciu 5 poprawnych odpowiedzi
 function wyswietlOknoZwyciestwa() {
