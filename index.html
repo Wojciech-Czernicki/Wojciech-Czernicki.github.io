@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gra - Odgadnij Obraz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             background: radial-gradient(circle at center, #000000 41%, #ff0000 100%);
@@ -16,6 +17,7 @@
             margin: 0;
             color: white;
             overflow: hidden;
+            position: relative; /* Dodaj pozycję względną, aby umieścić ikonkę w prawym dolnym rogu */
         }
 
         #obrazContainer {
@@ -33,7 +35,6 @@
             transition: transform 0.3s ease;
         }
 
-
         #startButton {
             padding: 10px;
             font-size: 16px;
@@ -44,7 +45,7 @@
             border: none;
             text-shadow: 1px 1px 2px black;
             transition: background-color 0.3s ease;
-            display: inline-block; 
+            display: inline-block;
             margin-left: 138px;
         }
 
@@ -52,13 +53,101 @@
             background-color: #005F73;
             transform: scale(1.05);
         }
+
+        /* Stylizacja dla ikonki zapytania */
+        .question-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Stylizacja dla okna modalnego */
+        .modal {
+            display: none; /* Ukryj domyślnie */
+            position: fixed; /* Stosuj w przypadku wyświetlania na różnych urządzeniach */
+            z-index: 1; /* Nadaj najwyższy poziom */
+            left: 0;
+            top: 0;
+            width: 100%; /* Pełna szerokość */
+            height: 100%; /* Pełna wysokość */
+            overflow: auto; /* Zezwalaj na przewijanie, jeśli zawartość jest większa niż ekran */
+            background-color: rgb(0,0,0); /* Tło czarne */
+            background-color: rgba(0,0,0,0.4); /* Czarny kolor z przezroczystością */
+            padding-top: 60px; /* Wypełnienie górne */
+        }
+
+        /* Stylizacja dla zawartości okna modalnego */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* Centralizacja w pionie i poziomie */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Szerokość */
+        }
+
+        /* Stylizacja dla przycisku zamykania */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div id="obrazContainer">
         <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
         <button id="startButton">Rozpocznij Grę</button>
+        <i class="fas fa-question question-icon"></i> <!-- Ikona zapytania -->
     </div>
-    <script src="skrypt.js"></script>
+
+    <!-- Okno modalne -->
+    <div id="myModal" class="modal">
+        <!-- Zawartość okna modalnego -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Tutaj umieść swój tekst</p>
+        </div>
+    </div>
+
+    <script>
+        // Pobierz elementy
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("startButton");
+        var span = document.getElementsByClassName("close")[0];
+        var questionIcon = document.querySelector(".question-icon");
+
+        // Gdy użytkownik kliknie na przycisk, otwórz okno modalne
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
+        questionIcon.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Gdy użytkownik kliknie na przycisk zamykania (×), zamknij okno modalne
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Gdy użytkownik kliknie w dowolne miejsce poza oknem modalnym, zamknij je
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
