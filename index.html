@@ -17,7 +17,7 @@
             margin: 0;
             color: white;
             overflow: hidden;
-            position: relative; /* Dodaj pozycję względną, aby umieścić ikonkę w prawym dolnym rogu */
+            position: relative; /* Dodaj pozycję względną dla ciała */
         }
 
         #obrazContainer {
@@ -79,7 +79,6 @@
             width: 100%; /* Pełna szerokość */
             height: 100%; /* Pełna wysokość */
             overflow: auto; /* Zezwalaj na przewijanie, jeśli zawartość jest większa niż ekran */
-            background-color: rgb(0,0,0); /* Tło czarne */
             background-color: rgba(0,0,0,0.4); /* Czarny kolor z przezroczystością */
             padding-top: 60px; /* Wypełnienie górne */
         }
@@ -106,6 +105,16 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        /* Dodatkowe style dla ciała strony */
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
