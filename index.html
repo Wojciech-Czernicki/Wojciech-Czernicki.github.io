@@ -131,42 +131,42 @@
         <!-- Zawartość okna modalnego -->
         <div class="modal-content">
             <span class="close">&times;</span>
-    <h2>Zasady korzystania z serwisu</h2>
-    <p>Tutaj znajdują się zasady korzystania z serwisu...</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec dui quis leo eleifend scelerisque non nec nulla. Sed ut est in nulla pharetra pharetra vel a ligula.</p>
-    <p>Prosimy o dokładne zapoznanie się z zasadami przed korzystaniem z serwisu.</p>
+            <h2>Zasady korzystania z serwisu</h2>
+            <p>Tutaj znajdują się zasady korzystania z serwisu...</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec dui quis leo eleifend scelerisque non nec nulla. Sed ut est in nulla pharetra pharetra vel a ligula.</p>
+            <p>Prosimy o dokładne zapoznanie się z zasadami przed korzystaniem z serwisu.</p>
         </div>
     </div>
 
     <script>
         // Pobierz elementy
- var modal = document.getElementById("myModal");
-var btn = document.getElementById("startButton");
-var span = document.getElementsByClassName("close")[0];
-var questionIcon = document.querySelector(".question-icon");
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("startButton");
+        var span = document.getElementsByClassName("close")[0];
+        var questionIcon = document.querySelector(".question-icon");
 
-// Gdy użytkownik kliknie na przycisk, rozpocznij grę
-btn.onclick = function() {
-    // Tutaj dodaj kod rozpoczynający grę
-    console.log("Rozpocznij grę");
-}
+        // Gdy użytkownik kliknie na przycisk, rozpocznij grę
+        btn.onclick = function() {
+            // Tutaj dodaj kod rozpoczynający grę
+            console.log("Rozpocznij grę");
+        }
 
-// Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
-questionIcon.onclick = function() {
-    modal.style.display = "block";
-}
+        // Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
+        questionIcon.onclick = function() {
+            modal.style.display = "block";
+        }
 
-// Gdy użytkownik kliknie na przycisk zamykania (×), zamknij okno modalne
-span.onclick = function() {
-    modal.style.display = "none";
-}
+        // Gdy użytkownik kliknie na przycisk zamykania (×), zamknij okno modalne
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
 
-// Gdy użytkownik kliknie w dowolne miejsce poza oknem modalnym, zamknij je
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+        // Gdy użytkownik kliknie w dowolne miejsce poza oknem modalnym, zamknij je
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
