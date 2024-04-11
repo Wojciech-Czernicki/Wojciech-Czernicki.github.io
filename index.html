@@ -140,32 +140,33 @@
 
     <script>
         // Pobierz elementy
-        var modal = document.getElementById("myModal");
-        var btn = document.getElementById("startButton");
-        var span = document.getElementsByClassName("close")[0];
-        var questionIcon = document.querySelector(".question-icon");
+ var modal = document.getElementById("myModal");
+var btn = document.getElementById("startButton");
+var span = document.getElementsByClassName("close")[0];
+var questionIcon = document.querySelector(".question-icon");
 
-        // Gdy użytkownik kliknie na przycisk, otwórz okno modalne
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
+// Gdy użytkownik kliknie na przycisk, rozpocznij grę
+btn.onclick = function() {
+    // Tutaj dodaj kod rozpoczynający grę
+    console.log("Rozpocznij grę");
+}
 
-        // Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
-        questionIcon.onclick = function() {
-            modal.style.display = "block";
-        }
+// Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
+questionIcon.onclick = function() {
+    modal.style.display = "block";
+}
 
-        // Gdy użytkownik kliknie na przycisk zamykania (×), zamknij okno modalne
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
+// Gdy użytkownik kliknie na przycisk zamykania (×), zamknij okno modalne
+span.onclick = function() {
+    modal.style.display = "none";
+}
 
-        // Gdy użytkownik kliknie w dowolne miejsce poza oknem modalnym, zamknij je
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+// Gdy użytkownik kliknie w dowolne miejsce poza oknem modalnym, zamknij je
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
     </script>
 </body>
 </html>
