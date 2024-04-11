@@ -10,9 +10,9 @@ const maksymalnaIloscNiepoprawnychOdpowiedzi = 5;
 var liczbaPoprawnychOdpowiedzi = 0;
 var czyGraZakonczona = false;
 
-async function pobierzBazeDanych() {
+async function pobierzBazeDanych(nazwaBazy) {
     try {
-        const response = await fetch('Baza.json');
+        const response = await fetch(nazwaBazy);
         if (!response.ok) {
             throw new Error(`Nieudane pobieranie danych. Kod odpowiedzi: ${response.status}`);
         }
@@ -91,7 +91,7 @@ function ukryjOknoPorazki() {
 
 // Funkcja restartujaca gre po przegranej
 function zagrajPonownie() {
-window.location.reload();
+    window.location.reload();
 }
 
 // Funkcja zakonczajaca gre i wracajaca do indexu po przegranej
@@ -181,8 +181,6 @@ function sprawdzOdpowiedz() {
     }
 }
 
-
-
 // ObsÅ‚uga klawiatury
 document.addEventListener('keydown', function (event) {
     // Akceptuj litery, cyfry i spacjê
@@ -199,12 +197,12 @@ document.addEventListener('keydown', function (event) {
 
 // Rozpocznij grê po za³adowaniu strony
 document.addEventListener('DOMContentLoaded', function () {
-    pobierzBazeDanych();
+    pobierzBazeDanych('baza.json'); // Tutaj zmieñ na nazwê pliku bazy danych, któr¹ chcesz u¿yæ
 });
 
-function rozpocznijGre() {
+function rozpocznijGre(nazwaBazy) {
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('graScreen').style.display = 'flex';
     document.getElementById('aktywatorKlawiatury').focus(); 
-    pobierzBazeDanych();
+    pobierzBazeDanych(nazwaBazy);
 }

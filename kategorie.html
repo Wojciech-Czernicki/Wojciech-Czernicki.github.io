@@ -19,12 +19,17 @@
         }
         h1 {
             color: white;
+            margin-bottom: 20px;
         }
-        #kategorieContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .kategoria {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .obrazek {
+            width: 200px;
+            height: auto;
+            margin-bottom: 10px;
+            cursor: pointer;
         }
         button {
             margin: 10px;
@@ -44,11 +49,25 @@
 </head>
 <body>
     <h1>Wybierz kategoriê</h1>
-    <div id="kategorieContainer">
-        <button onclick="rozpocznijGre('kategoria1')">Kategoria 1</button>
-        <button onclick="rozpocznijGre('kategoria2')">Kategoria 2</button>
-        <button onclick="rozpocznijGre('kategoria3')">Kategoria 3</button>
-        <button onclick="rozpocznijGre('kategoria4')">Kategoria 4</button>
+    <div class="kategoria" onclick="rozpocznijGre('kategoria1')">
+        <img class="obrazek" src="Obrazy_Wizualne/Zycie.jpg" alt="Random">
+        <p>Random</p>
+        <button>Wybierz</button>
+    </div>
+    <div class="kategoria" onclick="rozpocznijGre('kategoria2')">
+        <img class="obrazek" src="Obrazy_Wizualne/Zycie.jpg" alt="CS2">
+        <p>CS2</p>
+        <button>Wybierz</button>
+    </div>
+    <div class="kategoria" onclick="rozpocznijGre('kategoria3')">
+        <img class="obrazek" src="phasmophobia_obrazek.jpg" alt="Phasmophobia">
+        <p>Phasmophobia</p>
+        <button>Wybierz</button>
+    </div>
+    <div class="kategoria" onclick="rozpocznijGre('kategoria4')">
+        <img class="obrazek" src="pusty_obrazek.jpg" alt="Pusty">
+        <p>Kategoria 4 - Pusty</p>
+        <button>Wybierz</button>
     </div>
 
     <script src="skrypt.js"></script>
