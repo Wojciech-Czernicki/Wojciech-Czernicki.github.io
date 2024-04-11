@@ -1,6 +1,6 @@
 document.getElementById('startButton').addEventListener('click', function () {
-    // Po kliknieciu przycisku "Start", przekieruj uzytkownika do strony gry.
-    window.location.href = 'Glowny.html';
+    // Po klikniêciu przycisku "Wybierz Kategoriê", przekieruj u¿ytkownika do strony z wyborem kategorii.
+    window.location.href = 'kategorie.html';
 });
 
 // Dodaj funkcje do sprawdzenia, czy gra zostala juz rozpoczeta

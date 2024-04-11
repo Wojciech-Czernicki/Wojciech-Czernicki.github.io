@@ -122,7 +122,7 @@
 <body>
     <div id="obrazContainer">
         <img id="obraz" src="Obrazy_Wizualne/LOGO.jpg" alt="Obraz powitalny">
-        <button id="startButton">Rozpocznij Grę</button>
+        <button id="startButton">Wybierz Kategorię</button>
         <i class="fas fa-question question-icon"></i> <!-- Ikona zapytania -->
     </div>
 
@@ -131,14 +131,14 @@
         <!-- Zawartość okna modalnego -->
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Zasady korzystania z serwisu</h2>
+            <h2>Zasady gry</h2>
             <p>Tutaj znajdują się zasady korzystania z serwisu...</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec dui quis leo eleifend scelerisque non nec nulla. Sed ut est in nulla pharetra pharetra vel a ligula.</p>
+            <p>Zadaniem gracza jest odgadnięcie 5 lokacji(w zależności od kategori może to być z jednej gry bądź różnych gier).</p>
             <p>Prosimy o dokładne zapoznanie się z zasadami przed korzystaniem z serwisu.</p>
         </div>
     </div>
 
-    <script src="skrypt.js"></script>
+<script src="skrypt.js"></script>
     <script>
         // Pobierz elementy
         var modal = document.getElementById("myModal");
@@ -148,7 +148,7 @@
 
         // Gdy użytkownik kliknie na przycisk, otwórz okno modalne
         btn.onclick = function() {
-            rozpocznijGre();
+            modal.style.display = "block";
         }
 
         // Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne

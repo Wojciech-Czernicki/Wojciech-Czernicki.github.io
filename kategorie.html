@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra - Kategorie</title>
+    <style>
+        body {
+            background: radial-gradient(circle at center, #000000 41%, #ff0000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            overflow: hidden;
+        }
+        h1 {
+            color: white;
+        }
+        #kategorieContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #005F73;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wybierz kategoriê</h1>
+    <div id="kategorieContainer">
+        <button onclick="rozpocznijGre('kategoria1')">Kategoria 1</button>
+        <button onclick="rozpocznijGre('kategoria2')">Kategoria 2</button>
+        <button onclick="rozpocznijGre('kategoria3')">Kategoria 3</button>
+        <button onclick="rozpocznijGre('kategoria4')">Kategoria 4</button>
+    </div>
+
+    <script src="skrypt.js"></script>
+    <script>
+        function rozpocznijGre(kategoria) {
+            // Ustaw lokalne skladowanie, aby oznaczyc, ze gra zostala rozpoczeta
+            localStorage.setItem("graRozpoczeta", "true");
+
+            // Przekieruj u¿ytkownika do odpowiedniego trybu gry dla wybranej kategorii
+            window.location.href = kategoria + '.html';
+        }
+    </script>
+</body>
+</html>
