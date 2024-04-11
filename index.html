@@ -137,6 +137,7 @@
             <p>Prosimy o dokładne zapoznanie się z zasadami przed korzystaniem z serwisu.</p>
         </div>
     </div>
+
     <script src="skrypt.js"></script>
     <script>
         // Pobierz elementy
@@ -145,10 +146,9 @@
         var span = document.getElementsByClassName("close")[0];
         var questionIcon = document.querySelector(".question-icon");
 
-        // Gdy użytkownik kliknie na przycisk, rozpocznij grę
+        // Gdy użytkownik kliknie na przycisk, otwórz okno modalne
         btn.onclick = function() {
-            // Tutaj dodaj kod rozpoczynający grę
-            console.log("Rozpocznij grę");
+            rozpocznijGre();
         }
 
         // Gdy użytkownik kliknie na ikonkę zapytania, otwórz okno modalne
