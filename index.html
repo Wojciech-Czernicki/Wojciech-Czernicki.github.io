@@ -3,198 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clip Manager</title>
+  <title>Clip Manager PRO</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
   <style>
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-    }
-
-    h1, h2, h3 { margin: 10px 0; }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      margin-bottom: 10px;
-      background: #1e293b;
-      color: white;
-    }
-
-    button {
-      padding: 10px 14px;
-      border: none;
-      border-radius: 10px;
-      background: #3b82f6;
-      color: white;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    button:hover { background: #2563eb; }
-
-    .secondary {
-      background: #334155;
-    }
-
-    .card {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 16px;
-      margin-top: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .row button { flex: 1; }
-
-    video {
-      width: 100%;
-      border-radius: 12px;
-      margin: 10px 0;
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .badge {
-      font-size: 12px;
-      opacity: 0.7;
-    }
+    body { font-family: system-ui; background:#0f172a; color:white; margin:0; }
+    .container { max-width:900px; margin:auto; padding:20px; }
+    input { width:100%; padding:10px; margin:5px 0; border-radius:10px; border:none; background:#1e293b; color:white; }
+    button { padding:10px; border:none; border-radius:10px; background:#3b82f6; color:white; cursor:pointer; }
+    .card { background:#1e293b; padding:15px; border-radius:15px; margin-top:10px; }
+    video { width:100%; border-radius:10px; }
   </style>
 </head>
 <body>
-
 <div class="container">
 
-  <div id="auth">
-    <h2>Login / Register</h2>
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <div class="row">
-      <button onclick="login()">Login</button>
-      <button class="secondary" onclick="register()">Register</button>
-    </div>
-  </div>
+<div id="auth">
+  <h2>Login</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="register()">Register</button>
+  <button onclick="login()">Login</button>
+</div>
 
-  <div id="app" style="display:none">
+<div id="app" style="display:none">
+  <h1>🎬 Clip Manager PRO</h1>
+  <button onclick="logout()">Logout</button>
 
-    <div class="topbar">
-      <h1>🎬 Clip Manager</h1>
-      <div>
-        <span id="userLabel" class="badge"></span>
-        <button class="secondary" onclick="logout()">Logout</button>
-      </div>
-    </div>
+  <h3>Add clip</h3>
+  <input id="title" placeholder="Title">
+  <input id="url" placeholder="Video URL">
+  <button onclick="addClip()">Add</button>
 
-    <div class="card">
-      <h3>Add clip</h3>
-      <input id="title" placeholder="Title">
-      <input id="url" placeholder="Video URL">
-      <button onclick="addClip()">Add clip</button>
-    </div>
-
-    <div id="clips"></div>
-
-  </div>
+  <h3>Top clips</h3>
+  <div id="clips"></div>
+</div>
 
 </div>
 
 <script>
-let user = null;
-let clips = JSON.parse(localStorage.getItem('clips')) || [];
+// 🔥 WSTAW SWOJE DANE Z FIREBASE
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID"
+};
 
-function saveClips() {
-  localStorage.setItem('clips', JSON.stringify(clips));
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let clips = [];
+
+// AUTH
+function register(){
+  auth.createUserWithEmailAndPassword(email.value, password.value)
+    .catch(e=>alert(e.message));
 }
 
-function register() {
-  const u = username.value;
-  const p = password.value;
-  if (!u || !p) return;
-  localStorage.setItem('user_' + u, JSON.stringify({u, p}));
-  user = {u};
-  localStorage.setItem('currentUser', JSON.stringify(user));
-  initApp();
+function login(){
+  auth.signInWithEmailAndPassword(email.value, password.value)
+    .catch(e=>alert(e.message));
 }
 
-function login() {
-  const u = username.value;
-  const p = password.value;
-  const data = JSON.parse(localStorage.getItem('user_' + u));
-  if (!data || data.p !== p) return alert('Wrong data');
-  user = {u};
-  localStorage.setItem('currentUser', JSON.stringify(user));
-  initApp();
-}
+function logout(){ auth.signOut(); }
 
-function logout() {
-  localStorage.removeItem('currentUser');
-  location.reload();
-}
+// AUTO LOGIN
+auth.onAuthStateChanged(user=>{
+  if(user){
+    authDiv.style.display='none';
+    app.style.display='block';
+    loadClips();
+  } else {
+    authDiv.style.display='block';
+    app.style.display='none';
+  }
+});
 
-function addClip() {
-  const t = title.value;
-  const u = url.value;
-  if (!t || !u) return;
-  clips.push({id: Date.now(), title: t, url: u, rating: 0, user: user.u});
-  saveClips();
-  render();
-}
-
-function rate(id, val) {
-  clips = clips.map(c => c.id === id ? {...c, rating: val} : c);
-  saveClips();
-  render();
-}
-
-function render() {
-  clipsDiv.innerHTML = '';
-  clips.slice().reverse().forEach(c => {
-    const div = document.createElement('div');
-    div.className = 'card';
-    div.innerHTML = `
-      <h3>${c.title}</h3>
-      <div class="badge">by ${c.user}</div>
-      <video src="${c.url}" controls></video>
-      <div class="row">
-        ${[1,2,3,4,5].map(n => `<button onclick="rate(${c.id}, ${n})">⭐ ${n}</button>`).join('')}
-      </div>
-      <div class="badge">Rating: ${c.rating}</div>
-    `;
-    clipsDiv.appendChild(div);
+// ADD CLIP
+function addClip(){
+  db.collection('clips').add({
+    title: title.value,
+    url: url.value,
+    rating: 0,
+    likes: 0,
+    user: auth.currentUser.email,
+    created: Date.now()
   });
 }
 
-function initApp() {
-  document.getElementById('auth').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  userLabel.innerText = user.u;
-  render();
+// LOAD CLIPS
+function loadClips(){
+  db.collection('clips').orderBy('created','desc')
+    .onSnapshot(snap=>{
+      clips = snap.docs.map(d=>({id:d.id,...d.data()}));
+      render();
+    });
 }
 
-const saved = localStorage.getItem('currentUser');
-if (saved) {
-  user = JSON.parse(saved);
-  initApp();
+// LIKE
+function like(id, val){
+  const clip = clips.find(c=>c.id===id);
+  db.collection('clips').doc(id).update({likes: clip.likes + val});
+}
+
+// RENDER
+function render(){
+  clipsDiv.innerHTML='';
+
+  clips.sort((a,b)=>b.likes-a.likes);
+
+  clips.forEach(c=>{
+    const div=document.createElement('div');
+    div.className='card';
+    div.innerHTML=`
+      <h3>${c.title}</h3>
+      <small>${c.user}</small>
+      <video src="${c.url}" controls></video>
+      <p>👍 ${c.likes}</p>
+      <button onclick="like('${c.id}',1)">Like</button>
+    `;
+    clipsDiv.appendChild(div);
+  });
 }
 </script>
 
