@@ -5,32 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clip Manager</title>
   <style>
-    body { font-family: Arial; max-width: 800px; margin: auto; padding: 20px; }
-    input, button { padding: 8px; margin: 5px 0; }
-    .clip { border: 1px solid #ccc; padding: 10px; margin-top: 10px; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1, h2, h3 { margin: 10px 0; }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 10px;
+      background: #1e293b;
+      color: white;
+    }
+
+    button {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 10px;
+      background: #3b82f6;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover { background: #2563eb; }
+
+    .secondary {
+      background: #334155;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 16px;
+      margin-top: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .row button { flex: 1; }
+
+    video {
+      width: 100%;
+      border-radius: 12px;
+      margin: 10px 0;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .badge {
+      font-size: 12px;
+      opacity: 0.7;
+    }
   </style>
 </head>
 <body>
 
-<div id="auth">
-  <h2>Login / Register</h2>
-  <input id="username" placeholder="Username"><br>
-  <input id="password" type="password" placeholder="Password"><br>
-  <button onclick="login()">Login</button>
-  <button onclick="register()">Register</button>
-</div>
+<div class="container">
 
-<div id="app" style="display:none">
-  <h2>Clip Manager</h2>
-  <p id="userLabel"></p>
-  <button onclick="logout()">Logout</button>
+  <div id="auth">
+    <h2>Login / Register</h2>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <div class="row">
+      <button onclick="login()">Login</button>
+      <button class="secondary" onclick="register()">Register</button>
+    </div>
+  </div>
 
-  <h3>Add clip</h3>
-  <input id="title" placeholder="Title"><br>
-  <input id="url" placeholder="Video URL"><br>
-  <button onclick="addClip()">Add</button>
+  <div id="app" style="display:none">
 
-  <div id="clips"></div>
+    <div class="topbar">
+      <h1>🎬 Clip Manager</h1>
+      <div>
+        <span id="userLabel" class="badge"></span>
+        <button class="secondary" onclick="logout()">Logout</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Add clip</h3>
+      <input id="title" placeholder="Title">
+      <input id="url" placeholder="Video URL">
+      <button onclick="addClip()">Add clip</button>
+    </div>
+
+    <div id="clips"></div>
+
+  </div>
+
 </div>
 
 <script>
@@ -83,14 +168,17 @@ function rate(id, val) {
 
 function render() {
   clipsDiv.innerHTML = '';
-  clips.forEach(c => {
+  clips.slice().reverse().forEach(c => {
     const div = document.createElement('div');
-    div.className = 'clip';
+    div.className = 'card';
     div.innerHTML = `
-      <b>${c.title}</b> (by ${c.user})<br>
-      <video src="${c.url}" controls width="100%"></video><br>
-      Rating: ${c.rating}<br>
-      ${[1,2,3,4,5].map(n => `<button onclick="rate(${c.id}, ${n})">${n}</button>`).join('')}
+      <h3>${c.title}</h3>
+      <div class="badge">by ${c.user}</div>
+      <video src="${c.url}" controls></video>
+      <div class="row">
+        ${[1,2,3,4,5].map(n => `<button onclick="rate(${c.id}, ${n})">⭐ ${n}</button>`).join('')}
+      </div>
+      <div class="badge">Rating: ${c.rating}</div>
     `;
     clipsDiv.appendChild(div);
   });
@@ -99,11 +187,10 @@ function render() {
 function initApp() {
   document.getElementById('auth').style.display = 'none';
   document.getElementById('app').style.display = 'block';
-  userLabel.innerText = 'Logged as: ' + user.u;
+  userLabel.innerText = user.u;
   render();
 }
 
-// Auto login
 const saved = localStorage.getItem('currentUser');
 if (saved) {
   user = JSON.parse(saved);
