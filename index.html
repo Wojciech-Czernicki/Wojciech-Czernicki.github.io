@@ -1,139 +1,115 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clip Manager</title>
+  <style>
+    body { font-family: Arial; max-width: 800px; margin: auto; padding: 20px; }
+    input, button { padding: 8px; margin: 5px 0; }
+    .clip { border: 1px solid #ccc; padding: 10px; margin-top: 10px; }
+  </style>
+</head>
+<body>
 
-export default function App() {
-  const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+<div id="auth">
+  <h2>Login / Register</h2>
+  <input id="username" placeholder="Username"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Register</button>
+</div>
 
-  const [clips, setClips] = useState([]);
-  const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
+<div id="app" style="display:none">
+  <h2>Clip Manager</h2>
+  <p id="userLabel"></p>
+  <button onclick="logout()">Logout</button>
 
-  // Load from localStorage
-  useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    const savedClips = localStorage.getItem("clips");
-    if (savedUser) setUser(JSON.parse(savedUser));
-    if (savedClips) setClips(JSON.parse(savedClips));
-  }, []);
+  <h3>Add clip</h3>
+  <input id="title" placeholder="Title"><br>
+  <input id="url" placeholder="Video URL"><br>
+  <button onclick="addClip()">Add</button>
 
-  useEffect(() => {
-    localStorage.setItem("clips", JSON.stringify(clips));
-  }, [clips]);
+  <div id="clips"></div>
+</div>
 
-  const register = () => {
-    if (!username || !password) return;
-    const newUser = { username, password };
-    localStorage.setItem(`user_${username}`, JSON.stringify(newUser));
-    setUser(newUser);
-    localStorage.setItem("user", JSON.stringify(newUser));
-  };
+<script>
+let user = null;
+let clips = JSON.parse(localStorage.getItem('clips')) || [];
 
-  const login = () => {
-    const stored = localStorage.getItem(`user_${username}`);
-    if (!stored) return alert("User not found");
-
-    const parsed = JSON.parse(stored);
-    if (parsed.password !== password) return alert("Wrong password");
-
-    setUser(parsed);
-    localStorage.setItem("user", JSON.stringify(parsed));
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
-  };
-
-  const addClip = () => {
-    if (!url || !title || !user) return;
-    setClips([
-      ...clips,
-      { id: Date.now(), url, title, rating: 0, user: user.username }
-    ]);
-    setUrl("");
-    setTitle("");
-  };
-
-  const rateClip = (id, value) => {
-    setClips(clips.map(c => c.id === id ? { ...c, rating: value } : c));
-  };
-
-  if (!user) {
-    return (
-      <div className="p-6 max-w-sm mx-auto">
-        <h1 className="text-xl font-bold mb-4">Login / Register</h1>
-        <Input
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          className="mb-2"
-        />
-        <Input
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          className="mb-4"
-        />
-        <div className="flex gap-2">
-          <Button onClick={login}>Login</Button>
-          <Button onClick={register} variant="outline">Register</Button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Clip Manager</h1>
-        <div className="flex gap-2 items-center">
-          <span className="text-sm">{user.username}</span>
-          <Button onClick={logout} variant="outline">Logout</Button>
-        </div>
-      </div>
-
-      <div className="flex gap-2 mb-6">
-        <Input
-          placeholder="Clip title"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-        />
-        <Input
-          placeholder="Clip URL"
-          value={url}
-          onChange={e => setUrl(e.target.value)}
-        />
-        <Button onClick={addClip}>Add</Button>
-      </div>
-
-      <div className="grid gap-4">
-        {clips.map(clip => (
-          <Card key={clip.id}>
-            <CardContent className="p-4">
-              <h2 className="font-semibold">{clip.title}</h2>
-              <p className="text-xs text-gray-500">added by {clip.user}</p>
-              <video src={clip.url} controls className="w-full my-2 rounded" />
-
-              <div className="flex gap-2">
-                {[1,2,3,4,5].map(n => (
-                  <Button
-                    key={n}
-                    variant={clip.rating === n ? "default" : "outline"}
-                    onClick={() => rateClip(clip.id, n)}
-                  >
-                    {n}
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </div>
-  );
+function saveClips() {
+  localStorage.setItem('clips', JSON.stringify(clips));
 }
+
+function register() {
+  const u = username.value;
+  const p = password.value;
+  if (!u || !p) return;
+  localStorage.setItem('user_' + u, JSON.stringify({u, p}));
+  user = {u};
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  initApp();
+}
+
+function login() {
+  const u = username.value;
+  const p = password.value;
+  const data = JSON.parse(localStorage.getItem('user_' + u));
+  if (!data || data.p !== p) return alert('Wrong data');
+  user = {u};
+  localStorage.setItem('currentUser', JSON.stringify(user));
+  initApp();
+}
+
+function logout() {
+  localStorage.removeItem('currentUser');
+  location.reload();
+}
+
+function addClip() {
+  const t = title.value;
+  const u = url.value;
+  if (!t || !u) return;
+  clips.push({id: Date.now(), title: t, url: u, rating: 0, user: user.u});
+  saveClips();
+  render();
+}
+
+function rate(id, val) {
+  clips = clips.map(c => c.id === id ? {...c, rating: val} : c);
+  saveClips();
+  render();
+}
+
+function render() {
+  clipsDiv.innerHTML = '';
+  clips.forEach(c => {
+    const div = document.createElement('div');
+    div.className = 'clip';
+    div.innerHTML = `
+      <b>${c.title}</b> (by ${c.user})<br>
+      <video src="${c.url}" controls width="100%"></video><br>
+      Rating: ${c.rating}<br>
+      ${[1,2,3,4,5].map(n => `<button onclick="rate(${c.id}, ${n})">${n}</button>`).join('')}
+    `;
+    clipsDiv.appendChild(div);
+  });
+}
+
+function initApp() {
+  document.getElementById('auth').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  userLabel.innerText = 'Logged as: ' + user.u;
+  render();
+}
+
+// Auto login
+const saved = localStorage.getItem('currentUser');
+if (saved) {
+  user = JSON.parse(saved);
+  initApp();
+}
+</script>
+
+</body>
+</html>
